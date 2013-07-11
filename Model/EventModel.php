@@ -1,5 +1,5 @@
 <?php
-namespace SSN\TherapassBundle\Model;
+namespace Oxygen\PassbookBundle\Model;
 
 /**
  * Model representing event access pass 
@@ -7,7 +7,7 @@ namespace SSN\TherapassBundle\Model;
  * @author lolozere
  *
  */
-class PassModel implements PassInterface {
+class EventModel implements EventInterface {
 	
 	protected $id;
 	protected $name;
@@ -41,7 +41,7 @@ class PassModel implements PassInterface {
 	* @param \DateTime $dateStart
 	* @return PassModel
 	*/
-	public function setDateStart($dateStart)
+	public function setDateStart(\DateTime $dateStart)
 	{
 	    $this->dateStart = $dateStart;
 	    return $this;
@@ -59,7 +59,7 @@ class PassModel implements PassInterface {
 	* @param \DateTime $dateEnd
 	* @return PassModel
 	*/
-	public function setDateEnd($dateEnd)
+	public function setDateEnd(\DateTime $dateEnd)
 	{
 	    $this->dateEnd = $dateEnd;
 	    return $this;

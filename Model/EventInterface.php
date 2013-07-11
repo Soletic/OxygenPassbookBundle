@@ -1,13 +1,13 @@
 <?php
-namespace SSN\TherapassBundle\Model;
+namespace Oxygen\PassbookBundle\Model;
 
 /**
- * Interface implemented to represent event access pass 
+ * Interface implemented to represent event
  * 
  * @author lolozere
  *
  */
-interface PassInterface {
+interface EventInterface {
 	/**
 	 * @return integer
 	 */

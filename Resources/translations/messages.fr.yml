@@ -1,0 +1,7 @@
+oxygen_passbook:
+    event:
+        dateStart: Début le
+        id: '#'
+        dateEnd: Fin le
+        name: Evènement
+

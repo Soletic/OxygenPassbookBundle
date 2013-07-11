@@ -1,0 +1,6 @@
+oxygen_passbook_event_list_2:
+    pattern:  /events/datagrid
+    defaults: { _controller: 'OxygenDatagridBundle:Grid:view', grid_id: 'oxygen_passbook.event' }
+oxygen_passbook_event_list:
+    pattern:  /events
+    defaults: { _controller: 'OxygenPassbookBundle:Event:listEvents' }
