@@ -14,7 +14,7 @@ class EventController extends Controller
 {
     public function listEventsAction() {
     	// Solution 1 - Use default configurator sets in config
-    	$grid_view = $this->get('oxygen_datagrid.templating')->getEntityView('oxygen_passbook.event');
+    	$grid_view = $this->get('oxygen_datagrid.loader')->getView('oxygen_passbook_event');
     	
     	return $grid_view->getGridResponse('OxygenPassbookBundle:Event:list.html.twig');
     }
