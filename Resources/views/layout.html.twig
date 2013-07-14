@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+    </head>
+    <body>
+    		{# title #}
+    		<h1>{% block oxygen_passbook_title %}{% endblock oxygen_passbook_title %}</h1>
+    		
+    		{# Flash messages #}
+    		{% block oxygen_passbook_messages %}
+    		{{ oxygen_flash_messages() }}
+    		{% endblock oxygen_passbook_messages %}
+    		
+    		{# content #}}
+            {% block oxygen_passbook_content %}
+            {% endblock oxygen_passbook_content %}
+        </div>
+    </body>
+</html>

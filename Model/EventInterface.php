@@ -33,7 +33,7 @@ interface EventInterface {
 	 * 
 	 * @param \DateTime $dateStart
 	 */
-	public function setDateStart(\DateTime $dateStart);
+	public function setDateStart($dateStart);
 	/**
 	 * Date end of the event access
 	 *
@@ -44,7 +44,7 @@ interface EventInterface {
 	 * 
 	 * @param \DateTime $dateEnd
 	 */
-	public function setDateEnd(\DateTime $dateEnd);
+	public function setDateEnd($dateEnd);
 	
 	
 }

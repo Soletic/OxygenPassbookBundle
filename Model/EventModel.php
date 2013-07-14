@@ -41,7 +41,7 @@ class EventModel implements EventInterface {
 	* @param \DateTime $dateStart
 	* @return PassModel
 	*/
-	public function setDateStart(\DateTime $dateStart)
+	public function setDateStart($dateStart)
 	{
 	    $this->dateStart = $dateStart;
 	    return $this;
@@ -59,7 +59,7 @@ class EventModel implements EventInterface {
 	* @param \DateTime $dateEnd
 	* @return PassModel
 	*/
-	public function setDateEnd(\DateTime $dateEnd)
+	public function setDateEnd($dateEnd)
 	{
 	    $this->dateEnd = $dateEnd;
 	    return $this;

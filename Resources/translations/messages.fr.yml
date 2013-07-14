@@ -1,7 +1,21 @@
-oxygen_passbook:
-    event:
-        dateStart: Début le
-        id: '#'
-        dateEnd: Fin le
-        name: Evènement
+oxygen_passbook_event:
+    dateStart: Début le
+    id: '#'
+    dateEnd: Fin le
+    name: Evènement
+    Actions: ''
 
+oxygen_passbook: 
+    event:
+        section_name: Evènements
+        help: Toute réservation est associé à un évènement. Cet évènement donne accès à liste d'animations, chacune proposée à différents créneaux horaires
+        example: | 
+            Exemple d'évènement : L'évènement Pass Bien-être donne accès à des thérapeutes prodiguant des soins à différents créneaux horaires.
+        create: Créer un évènement
+        save: Enregistrer
+        notfound: L'évènement %id% n'existe pas
+        form:
+            dateStart: Début le
+            dateEnd: Fin le
+            name: Nom
+        saved: Evènement <strong>%name%</strong> correctement enregistré

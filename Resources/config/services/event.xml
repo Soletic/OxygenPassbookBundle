@@ -5,15 +5,21 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     
     <parameters>
-        <parameter key="oxygen_passbook.event_grid.configuration_class">Oxygen\DatagridBundle\Grid\Configuration\SimpleListConfiguration</parameter>
+        <parameter key="oxygen_passbook.event.grid.configuration_class">Oxygen\DatagridBundle\Grid\Configuration\SimpleListConfiguration</parameter>
+        <parameter key="oxygen_passbook.event.form.type_class">Oxygen\PassbookBundle\Form\Type\EventFormType</parameter>
     </parameters>
 
     <services>
-        <service id="oxygen_passbook.grid.event_configuration" class="%oxygen_passbook.event_grid.configuration_class%">
-        	<tag name="oxygen.grid.configuration" 
-        		grid_id="oxygen_passbook_event" 
-        		source_type="entity" source_reference="oxygen_passbook.event" />
+        <service id="oxygen_passbook.grid.event_configuration" class="%oxygen_passbook.event.grid.configuration_class%">
+        	<tag name="oxygen.grid" grid_id="oxygen_passbook_event" source_type="entity" source_reference="oxygen_passbook.event" />
+        	<tag name="oxygen.grid_action" route="oxygen_passbook_event_edit" type="edit" />
+        	<tag name="oxygen.grid_action" route="oxygen_passbook_event_edit" type="delete" />
         </service>
+        
+        <service id="oxygen_passbook.form.event" class="%oxygen_passbook.event.form.type_class%">
+        	<tag name="form.type" alias="oxygen_passbook_event_type" />
+        </service>
+        
     </services>
     
 </container>

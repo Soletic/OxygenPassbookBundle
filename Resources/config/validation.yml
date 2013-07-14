@@ -1,0 +1,11 @@
+Oxygen\PassbookBundle\Form\Model\EventFormModel:
+  properties:
+    name:
+      - NotBlank: { groups: ['default'] }
+      - Length: { min: 4, groups: ['default'] }
+    dateStart:
+      - DateTime: { groups: ['default'] }
+      - NotNull: { groups: ['default'] }
+    dateEnd:
+      - DateTime: { groups: ['default'] }
+      - NotNull: { groups: ['default'] }
