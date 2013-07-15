@@ -4,6 +4,14 @@ oxygen_passbook_event:
     dateEnd: Fin le
     name: Evènement
     Actions: ''
+    products: Thérapeutes
+    
+oxygen_passbook_event_product:
+    url: Lien de la fiche
+    id: '#'
+    description: Informations
+    name: Thérapeute
+    Actions: ''
 
 oxygen_passbook: 
     event:
@@ -19,3 +27,16 @@ oxygen_passbook:
             dateEnd: Fin le
             name: Nom
         saved: Evènement <strong>%name%</strong> correctement enregistré
+        deleted: Evènement <strong>%name%</strong> supprimé
+    event_product:
+        section_name: %event% > Animations
+        help: Pour chaque évènement, des animations sont proposées à différents créneaux horaires.
+        create: Ajouter
+        save: Enregistrer
+        notfound: L'animation %id% n'existe pas
+        form:
+            url: Lien de la fiche
+            description: Informations
+            name: Nom
+        saved: Animation <strong>%name%</strong> correctement enregistré
+        deleted: Animation <strong>%name%</strong> supprimée

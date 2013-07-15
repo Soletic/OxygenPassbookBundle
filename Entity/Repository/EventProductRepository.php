@@ -8,6 +8,6 @@ use Doctrine\ORM\EntityRepository;
  * @author lolozere
  *
  */
-class EventRepository extends EntityRepository
+class EventProductRepository extends EntityRepository
 {
 }

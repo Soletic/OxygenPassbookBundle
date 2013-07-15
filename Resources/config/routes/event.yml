@@ -1,3 +1,4 @@
+# Event
 oxygen_passbook_event_list:
     pattern:  /events
     defaults: { _controller: 'OxygenPassbookBundle:Event:listEvents' }
@@ -12,3 +13,25 @@ oxygen_passbook_event_delete:
     requirements:
         id: \d+
     
+# Event product
+oxygen_passbook_event_product_list:
+    pattern:  /products/{eventId}
+    defaults: { _controller: 'OxygenPassbookBundle:Event:listEventProducts' }
+    requirements:
+        eventId: \d+
+oxygen_passbook_event_product_edit:
+    pattern:  /products/{eventId}/add/{id}
+    defaults: { _controller: 'OxygenPassbookBundle:Event:editEventProduct', id: null }
+    requirements:
+        eventId: \d+
+        id: \d+
+oxygen_passbook_event_product_direct_edit:
+    pattern:  /products/edit/{id}
+    defaults: { _controller: 'OxygenPassbookBundle:Event:editEventProduct' }
+    requirements:
+        id: \d+
+oxygen_passbook_event_product_delete:
+    pattern:  /products/delete/{id}
+    defaults: { _controller: 'OxygenPassbookBundle:Event:deleteEventProduct', id: null }
+    requirements:
+        id: \d+

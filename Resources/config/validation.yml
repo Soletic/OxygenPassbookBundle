@@ -9,3 +9,12 @@ Oxygen\PassbookBundle\Form\Model\EventFormModel:
     dateEnd:
       - DateTime: { groups: ['default'] }
       - NotNull: { groups: ['default'] }
+
+Oxygen\PassbookBundle\Form\Model\EventProductFormModel:
+  properties:
+    name:
+      - NotBlank: { groups: ['default'] }
+      - Length: { min: 4, groups: ['default'] }
+    url:
+      - Url: { groups: ['default'] }      
+      

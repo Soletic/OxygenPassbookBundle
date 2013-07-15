@@ -25,7 +25,10 @@ class Configuration extends OxygenConfiguration implements ConfigurationInterfac
         // configure your bundle. See the documentation linked above for
         // more information on that topic.
         
+        //$rootNode->children()
+        
         $this->addEntityConfiguration($rootNode, 'Oxygen\PassbookBundle\Entity\Event', 'Oxygen\PassbookBundle\Entity\Repository\EventRepository');
+        $this->addEntityConfiguration($rootNode, 'Oxygen\PassbookBundle\Entity\EventProduct', 'Oxygen\PassbookBundle\Entity\Repository\EventProductRepository');
 
         return $treeBuilder;
     }

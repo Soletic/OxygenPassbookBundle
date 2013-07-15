@@ -45,6 +45,24 @@ interface EventInterface {
 	 * @param \DateTime $dateEnd
 	 */
 	public function setDateEnd($dateEnd);
-	
-	
+	/**
+	 * Return products in the event
+	 * 
+	 * @return array
+	 */
+	public function getProducts();
+	/**
+	 * Add product to the event
+	 * 
+	 * @param EventProductInterface $product
+	 * @return EventInterface
+	 */
+	public function addProduct(EventProductInterface $product);
+	/**
+	 * Remove product to the event
+	 * 
+	 * @param EventProductInterface $product
+	 * @return EventInterface
+	 */
+	public function removeProduct(EventProductInterface $product);
 }

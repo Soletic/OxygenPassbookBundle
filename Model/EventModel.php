@@ -1,6 +1,8 @@
 <?php
 namespace Oxygen\PassbookBundle\Model;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
  * Model representing event access pass 
  * 
@@ -13,16 +15,21 @@ class EventModel implements EventInterface {
 	protected $name;
 	protected $dateStart;
 	protected $dateEnd;
+	protected $products;
+	
+	public function __construct() {
+		$this->products = new ArrayCollection();
+	}
 	
 	/**
-	 * @return integer
+	 * (non-PHPdoc)
+	 * @see Oxygen\PassbookBundle\Model.EventInterface::getId()
 	 */
 	public function getId() { return $this->id; }
-	
 	/**
-	* @param string $name
-	* @return PassModel
-	*/
+	 * (non-PHPdoc)
+	 * @see Oxygen\PassbookBundle\Model.EventInterface::setName()
+	 */
 	public function setName($name)
 	{
 	    $this->name = $name;
@@ -30,17 +37,18 @@ class EventModel implements EventInterface {
 	}
 	 
 	/**
-	* @return string
-	*/
+	 * (non-PHPdoc)
+	 * @see Oxygen\PassbookBundle\Model.EventInterface::getName()
+	 */
 	public function getName()
 	{
 	    return $this->name;
 	}
 	
 	/**
-	* @param \DateTime $dateStart
-	* @return PassModel
-	*/
+	 * (non-PHPdoc)
+	 * @see Oxygen\PassbookBundle\Model.EventInterface::setDateStart()
+	 */
 	public function setDateStart($dateStart)
 	{
 	    $this->dateStart = $dateStart;
@@ -48,17 +56,18 @@ class EventModel implements EventInterface {
 	}
 	 
 	/**
-	* @return \DateTime
-	*/
+	 * (non-PHPdoc)
+	 * @see Oxygen\PassbookBundle\Model.EventInterface::getDateStart()
+	 */
 	public function getDateStart()
 	{
 	    return $this->dateStart;
 	}
 	
 	/**
-	* @param \DateTime $dateEnd
-	* @return PassModel
-	*/
+	 * (non-PHPdoc)
+	 * @see Oxygen\PassbookBundle\Model.EventInterface::setDateEnd()
+	 */
 	public function setDateEnd($dateEnd)
 	{
 	    $this->dateEnd = $dateEnd;
@@ -66,11 +75,34 @@ class EventModel implements EventInterface {
 	}
 	 
 	/**
-	* @return \DateTime
-	*/
+	 * (non-PHPdoc)
+	 * @see Oxygen\PassbookBundle\Model.EventInterface::getDateEnd()
+	 */
 	public function getDateEnd()
 	{
 	    return $this->dateEnd;
+	}
+	
+	/**
+	 * (non-PHPdoc)
+	 * @see Oxygen\PassbookBundle\Model.EventInterface::getProducts()
+	 */
+	public function getProducts() {
+		return $this->products;
+	}
+	/**
+	 * (non-PHPdoc)
+	 * @see Oxygen\PassbookBundle\Model.EventInterface::addProduct()
+	 */
+	public function addProduct(EventProductInterface $product) {
+		$this->products->add($product);
+	}
+	/**
+	 * (non-PHPdoc)
+	 * @see Oxygen\PassbookBundle\Model.EventInterface::removeProduct()
+	 */
+	public function removeProduct(EventProductInterface $product) {
+		$this->products->removeElement($product);
 	}
 	
 }
