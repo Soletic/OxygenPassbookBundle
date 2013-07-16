@@ -8,9 +8,15 @@
     	<!-- event -->
         <parameter key="oxygen_passbook.event.grid.configuration_class">Oxygen\PassbookBundle\Entity\Grid\EventGridConfiguration</parameter>
         <parameter key="oxygen_passbook.event.form.type_class">Oxygen\PassbookBundle\Form\Type\EventFormType</parameter>
+        <!-- event  form-->
+        <parameter key="oxygen_passbook.event.form.class">Oxygen\PassbookBundle\Form\Handler\EventForm</parameter>
+        <parameter key="oxygen_passbook.event.form.model_class">Oxygen\PassbookBundle\Form\Model\EventFormModel</parameter>
         <!-- event product -->
         <parameter key="oxygen_passbook.event_product.grid.configuration_class">Oxygen\DatagridBundle\Grid\Configuration\Entity\EntityConfiguration</parameter>
         <parameter key="oxygen_passbook.event_product.form.type_class">Oxygen\PassbookBundle\Form\Type\EventProductFormType</parameter>
+        <!-- event product form-->
+        <parameter key="oxygen_passbook.event_product.form.class">Oxygen\PassbookBundle\Form\Handler\EventProductForm</parameter>
+        <parameter key="oxygen_passbook.event_product.form.model_class">Oxygen\PassbookBundle\Form\Model\EventProductFormModel</parameter>
     </parameters>
 
     <services>
@@ -29,12 +35,22 @@
         	<tag name="oxygen.grid_action" route="oxygen_passbook_event_product_delete" type="delete" />
         </service>
         
-        <!-- Form -->
-        <service id="oxygen_passbook.form.event" class="%oxygen_passbook.event.form.type_class%">
+        <!-- Form Type -->
+        <service id="oxygen_passbook.form.event.type" class="%oxygen_passbook.event.form.type_class%">
         	<tag name="form.type" alias="oxygen_passbook_event_type" />
         </service>
-        <service id="oxygen_passbook.form.event_product" class="%oxygen_passbook.event_product.form.type_class%">
+        <service id="oxygen_passbook.form.event_product.type" class="%oxygen_passbook.event_product.form.type_class%">
         	<tag name="form.type" alias="oxygen_passbook_event_product_type" />
+        </service>
+        
+        <!-- Oxygen Form -->
+        <service id="oxygen_passbook.form.event" class="%oxygen_passbook.event.form.class%">
+        	<tag name="oxygen.form" id="oxygen_passbook_event_form" 
+        		formType="oxygen_passbook_event_type" dataClass="%oxygen_passbook.event.form.model_class%" />
+        </service>
+        <service id="oxygen_passbook.form.event_product" class="%oxygen_passbook.event_product.form.class%">
+        	<tag name="oxygen.form" id="oxygen_passbook_event_product_form" 
+        		formType="oxygen_passbook_event_product_type" dataClass="%oxygen_passbook.event_product.form.model_class%" />
         </service>
         
     </services>

@@ -21,7 +21,7 @@ oxygen_passbook_event_product_list:
         eventId: \d+
 oxygen_passbook_event_product_edit:
     pattern:  /products/{eventId}/add/{id}
-    defaults: { _controller: 'OxygenPassbookBundle:Event:editEventProduct', id: null }
+    defaults: { _controller: 'OxygenPassbookBundle:Event:editEventProduct', id: null, eventId: null }
     requirements:
         eventId: \d+
         id: \d+
