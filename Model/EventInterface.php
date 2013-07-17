@@ -1,6 +1,8 @@
 <?php
 namespace Oxygen\PassbookBundle\Model;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
  * Interface implemented to represent event
  * 
@@ -52,17 +54,10 @@ interface EventInterface {
 	 */
 	public function getProducts();
 	/**
-	 * Add product to the event
+	 * Return tickets required for access event
 	 * 
-	 * @param EventProductInterface $product
-	 * @return EventInterface
+	 * @return ArrayCollection
 	 */
-	public function addProduct(EventProductInterface $product);
-	/**
-	 * Remove product to the event
-	 * 
-	 * @param EventProductInterface $product
-	 * @return EventInterface
-	 */
-	public function removeProduct(EventProductInterface $product);
+	public function getTickets();
+
 }

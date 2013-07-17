@@ -12,14 +12,28 @@ class EventProductFormModel extends EventProductModel
 	 * @var EventProductInterface
 	 */
 	protected $eventProduct;
-
-	public function __construct(EventProductInterface $eventProduct)
+	
+	/**
+	* @param EventProductInterface $eventProduct
+	* @return EventProductFormModel
+	*/
+	public function setEventProduct($eventProduct)
 	{
-		$this->eventProduct = $eventProduct;
-		$this->setName($eventProduct->getName());
-		$this->setDescription($eventProduct->getDescription());
-		$this->setUrl($eventProduct->getUrl());
+	    $this->eventProduct = $eventProduct;
+	    $this->setName($eventProduct->getName());
+	    $this->setDescription($eventProduct->getDescription());
+	    $this->setUrl($eventProduct->getUrl());
+	    return $this;
 	}
+	 
+	/**
+	* @return EventProductInterface
+	*/
+	public function getEventProduct()
+	{
+	    return $this->eventProduct;
+	}
+
 
 	public function getId()
 	{

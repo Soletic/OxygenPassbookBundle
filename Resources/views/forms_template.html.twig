@@ -19,12 +19,16 @@
     {% if label is empty %}
         {% set label = name|humanize %}
     {% endif %}
+    {% if (plaintext is defined and plaintext)  %}
+    {{ label|trans({}, translation_domain) }}
+    {% else %}
     <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
     	{{ label|trans({}, translation_domain) }}
     	{% if required %}
 		<span class="input-required" title="{{ 'label.required'|trans({}, 'oxygen_passbook_form') }}">*</span>
 		{% endif %}
     </label>
+    {% endif %}
 {% endspaceless %}
 {% endblock form_label %}
 
@@ -101,3 +105,12 @@
     {% endif %}
 {% endspaceless %}
 {% endblock time_widget %}
+
+{% block collection_widget %}
+{% spaceless %}
+    {% if prototype is defined %}
+        {% set attr = attr|merge({'data-prototype': form_row(prototype) }) %}
+    {% endif %}
+    {{ block('form_widget') }}
+{% endspaceless %}
+{% endblock collection_widget %}

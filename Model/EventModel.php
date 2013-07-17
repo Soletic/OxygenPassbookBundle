@@ -9,17 +9,14 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @author lolozere
  *
  */
-class EventModel implements EventInterface {
+abstract class EventModel implements EventInterface {
 	
 	protected $id;
 	protected $name;
 	protected $dateStart;
 	protected $dateEnd;
 	protected $products;
-	
-	public function __construct() {
-		$this->products = new ArrayCollection();
-	}
+	protected $tickets;
 	
 	/**
 	 * (non-PHPdoc)
@@ -90,19 +87,9 @@ class EventModel implements EventInterface {
 	public function getProducts() {
 		return $this->products;
 	}
-	/**
-	 * (non-PHPdoc)
-	 * @see Oxygen\PassbookBundle\Model.EventInterface::addProduct()
-	 */
-	public function addProduct(EventProductInterface $product) {
-		$this->products->add($product);
-	}
-	/**
-	 * (non-PHPdoc)
-	 * @see Oxygen\PassbookBundle\Model.EventInterface::removeProduct()
-	 */
-	public function removeProduct(EventProductInterface $product) {
-		$this->products->removeElement($product);
+	
+	public function getTickets() {
+		return $this->tickets;
 	}
 	
 }

@@ -17,6 +17,11 @@
         <!-- event product form-->
         <parameter key="oxygen_passbook.event_product.form.class">Oxygen\PassbookBundle\Form\Handler\EventProductForm</parameter>
         <parameter key="oxygen_passbook.event_product.form.model_class">Oxygen\PassbookBundle\Form\Model\EventProductFormModel</parameter>
+    	<!-- event ticket -->
+        <parameter key="oxygen_passbook.event_ticket.form.type_class">Oxygen\PassbookBundle\Form\Type\EventTicketFormType</parameter>
+        <!-- event ticket form-->
+        <parameter key="oxygen_passbook.event_ticket.form.class">Oxygen\PassbookBundle\Form\Handler\EventTicketForm</parameter>
+        <parameter key="oxygen_passbook.event_ticket.form.model_class">Oxygen\PassbookBundle\Form\Model\EventTicketFormModel</parameter>
     </parameters>
 
     <services>
@@ -41,6 +46,11 @@
         </service>
         <service id="oxygen_passbook.form.event_product.type" class="%oxygen_passbook.event_product.form.type_class%">
         	<tag name="form.type" alias="oxygen_passbook_event_product_type" />
+        	<argument>%oxygen_passbook.event_product.form.model_class%</argument>
+        </service>
+        <service id="oxygen_passbook.form.event_ticket.type" class="%oxygen_passbook.event_ticket.form.type_class%">
+        	<tag name="form.type" alias="oxygen_passbook_event_ticket_type" />
+        	<argument>%oxygen_passbook.event_ticket.form.model_class%</argument>
         </service>
         
         <!-- Oxygen Form -->

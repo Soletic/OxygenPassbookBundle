@@ -5,3 +5,12 @@ Date: Date
 Heure: Heure
 label:
     required: Informations obligatoires
+Tickets: Catégories
+Limit animations: Nombre maximum d'animations autorisées
+
+event:
+    informations: Informations
+    helper_tickets: |
+        Ajouter les catégories de tickets permettant d'accéder à l'évènement.<br />
+        Pour chacune d'elles, précisez le nombre d'animations auxquelles la catégorie donne droit.
+    ticket_number: N°%i%

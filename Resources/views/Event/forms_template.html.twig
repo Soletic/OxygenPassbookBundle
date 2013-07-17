@@ -1,1 +1,37 @@
 {% extends 'OxygenPassbookBundle::forms_template.html.twig' %}
+
+{% block oxygen_passbook_event_type_widget %}
+{% spaceless %}
+	<div class="row-fluid">
+		<div class="span6">
+			<h3>{{ 'event.informations'|trans({}, 'oxygen_passbook_form') }}</h3>
+			{{ form_row(form.name) }}
+			{{ form_row(form.dateStart) }}
+			{{ form_row(form.dateEnd) }}
+		</div>
+		<div class="span6">
+			<h3>{{ form_label(form.tickets, null, { plaintext: true }) }}</h3>
+			{{ form_errors(form.tickets) }}
+			<div class="alert alert-info">{% autoescape false %}{{ 'event.helper_tickets'|trans({}, 'oxygen_passbook_form') }}{% endautoescape %}</div>
+			{{ form_errors(form) }}
+			<div class="form-collection accordion" id="event-tickets">
+				{% for i, ticket in form.tickets %}
+				 <div class="accordion-group">
+				 	<div class="accordion-heading">
+						<a class="accordion-toggle" data-toggle="collapse" data-parent="#event-tickets" href="#event-ticket{{ i }}">
+						{{ 'event.ticket_number'|trans({'%i%': (i+1)}, 'oxygen_passbook_form') }}
+						</a>
+					</div>
+					<div id="event-ticket{{ i }}" class="accordion-body collapse {{ (i==0)?'in':'' }}">
+						<div class="accordion-inner">
+						{{ form_errors(ticket) }}
+						{{ form_widget(ticket) }}
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+{% endspaceless %}
+{% endblock oxygen_passbook_event_type_widget %}
