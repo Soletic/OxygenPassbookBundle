@@ -1,9 +1,11 @@
 <?php
 namespace Oxygen\PassbookBundle\Form\Model;
 
+use Oxygen\FrameworkBundle\Form\Model\EntityEmbeddedInterface;
+
 use Oxygen\PassbookBundle\Model\EventTicketModel;
 
-class EventTicketFormModel extends EventTicketModel
+class EventTicketFormModel extends EventTicketModel implements EntityEmbeddedInterface
 {
 
 	/**
@@ -15,18 +17,16 @@ class EventTicketFormModel extends EventTicketModel
 	* @param EventTicketInterface $eventTicket
 	* @return EventTicketFormModel
 	*/
-	public function setEventTicket($eventTicket)
+	public function setEntity($entity)
 	{
-	    $this->eventTicket = $eventTicket;
-	    $this->setName($eventTicket->getName());
-	    $this->setLimitAnimations($eventTicket->getLimitAnimations());
+	    $this->eventTicket = $entity;
 	    return $this;
 	}
 	 
 	/**
 	* @return EventTicketInterface
 	*/
-	public function getEventTicket()
+	public function getEntity()
 	{
 	    return $this->eventTicket;
 	}

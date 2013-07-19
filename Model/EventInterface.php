@@ -54,10 +54,39 @@ interface EventInterface {
 	 */
 	public function getProducts();
 	/**
+	 * Add product event
+	 * 
+	 * @param EventProductInterface $product
+	 * @return \Oxygen\PassbookBundle\Model\EventInterface
+	 */
+	public function addProduct(EventProductInterface $product);
+	/**
+	 * Remove product
+	 * 
+	 * @param EventProductInterface $product
+	 * @return \Oxygen\PassbookBundle\Model\EventInterface
+	 */
+	public function removeProduct(EventProductInterface $product);
+	/**
 	 * Return tickets required for access event
 	 * 
 	 * @return ArrayCollection
 	 */
 	public function getTickets();
+	
+	/**
+	 * Add ticket access
+	 *
+	 * @param EventTicketInterface $ticket
+	 * @return EventModel
+	 */
+	public function addTicket(EventTicketInterface $ticket);
+	/**
+	 * Remove ticket access
+	 *
+	 * @param EventTicketInterface $ticket
+	 * @return EventModel
+	 */
+	public function removeTicket(EventTicketInterface $ticket);
 
 }

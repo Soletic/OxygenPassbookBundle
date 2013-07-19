@@ -1,5 +1,6 @@
 <?php
 namespace Oxygen\PassbookBundle\Entity;
+
 use Oxygen\PassbookBundle\Model\EventProductModel;
 
 /**
@@ -10,4 +11,6 @@ use Oxygen\PassbookBundle\Model\EventProductModel;
  */
 class EventProduct extends EventProductModel
 {
+	
+	
 }

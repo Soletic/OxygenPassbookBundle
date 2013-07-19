@@ -72,9 +72,9 @@
     {% else %}
     	<div {{ block('widget_container_attributes') }}>
             {{ date_pattern|replace({
-                '{{ year }}':  form_widget(form.year, { 'attr': { 'class': 'span2' } }),
-                '{{ month }}': form_widget(form.month, { 'attr': { 'class': 'span2' } }),
-                '{{ day }}':   form_widget(form.day, { 'attr': { 'class': 'span2' } }),
+                '{{ year }}':  form_widget(form.year, { 'attr': { 'class': 'span3' } }),
+                '{{ month }}': form_widget(form.month, { 'attr': { 'class': 'span3' } }),
+                '{{ day }}':   form_widget(form.day, { 'attr': { 'class': 'span3' } }),
             })|raw }}
         </div>
     {% endif %}
@@ -87,16 +87,16 @@
         {{ block('form_widget_simple') }}
     {% else %}
     	<div {{ block('widget_container_attributes') }}>
-    		<div class="input-append span2">
+    		<div class="input-append span3">
            		{{ form_widget(form.hour, { 'attr': { 'size': '1', 'class': 'span8'  } }) }}
            		<span class="add-on">h</span>
            	</div>
-           	<div class="input-append span2">
+           	<div class="input-append span3">
             	{{ form_widget(form.minute, { 'attr': { 'size': '1', 'class': 'span8'  } }) }}
             	<span class="add-on">mn</span>
             </div>
             {% if with_seconds %}
-            <div class="input-append span2">
+            <div class="input-append span3">
             	{{ form_widget(form.second, { 'attr': { 'size': '1', 'class': 'span8'  } }) }}
             	<span class="add-on">s</span>
             </div>

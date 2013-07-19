@@ -4,21 +4,23 @@ oxygen_passbook_event:
     dateEnd: Fin le
     name: Evènement
     Actions: ''
-    products: Thérapeutes
+    products: Animations
     
 oxygen_passbook_event_product:
     url: Lien de la fiche
     id: '#'
     description: Informations
-    name: Thérapeute
+    name: Animation
     Actions: ''
+
+No result: Aucun résultat
 
 oxygen_passbook: 
     event:
         section_name: Evènements
-        help: Toute réservation est associé à un évènement. Cet évènement donne accès à liste d'animations, chacune proposée à différents créneaux horaires
+        help: Toute réservation est associée à un évènement. Pour chaque évènement des animations sont organisées à différents créneaux horaires
         example: | 
-            Exemple d'évènement : L'évènement Pass Bien-être donne accès à des thérapeutes prodiguant des soins à différents créneaux horaires.
+            Exemple d'évènement : L'évènement Pass Bien-être donne accès à des animations "thérapeutes" prodiguant des soins à différents créneaux horaires.
         create: Créer un évènement
         save: Enregistrer
         notfound: L'évènement %id% n'existe pas
@@ -38,5 +40,6 @@ oxygen_passbook:
             url: Lien de la fiche
             description: Informations
             name: Nom
-        saved: Animation <strong>%name%</strong> correctement enregistré
+        saved: Animation <strong>%name%</strong> correctement enregistrée
         deleted: Animation <strong>%name%</strong> supprimée
+        copied: Nouvelle animation créée à partir de <strong>%name%</strong>

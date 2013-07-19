@@ -5,7 +5,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 use Symfony\Component\Form\FormBuilderInterface;
 
-use Symfony\Component\Form\AbstractType;
+use Oxygen\FrameworkBundle\Form\Type\EntityEmbeddedFormType;
 
 /**
  * Formulaire d'édition d'un ticket d'accès à un évènement
@@ -13,23 +13,18 @@ use Symfony\Component\Form\AbstractType;
  * @author lolozere
  *
  */
-class EventTicketFormType extends AbstractType {
-	
-	protected $dataClass;
-	
-	public function __construct($dataClass) {
-		$this->dataClass = $dataClass;
-	}
+class EventTicketFormType extends EntityEmbeddedFormType {
 	
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
+		parent::buildForm($builder, $options);
 		$builder->add('name', 'text', array('required' => true, 'translation_domain' => 'oxygen_passbook_form'));
 		$builder->add('limitAnimations', 'integer', array('required' => true, 'translation_domain' => 'oxygen_passbook_form'));
 	}
 	
 	public function setDefaultOptions(OptionsResolverInterface $resolver) {
+		parent::setDefaultOptions($resolver);
 		 $resolver->setDefaults(array(
-		 		'data_class' => $this->dataClass,
 		 		'translation_domain' => 'oxygen_passbook_form'
 		 ));
 	}

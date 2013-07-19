@@ -14,6 +14,13 @@
 			
 			<many-to-one field="event" target-entity="%oxygen_passbook.entities.event.class%" inversed-by="products">
        		</many-to-one>
+       		
+       		<one-to-many field="slots" target-entity="%oxygen_passbook.entities.event_product_slot.class%" mapped-by="eventProduct">
+       			<cascade>
+                	<cascade-persist/>
+                	<cascade-remove />
+            	</cascade>
+        	</one-to-many>
 			
 		</entity>
 		

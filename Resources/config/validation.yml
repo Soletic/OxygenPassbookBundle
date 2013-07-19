@@ -1,4 +1,4 @@
-Oxygen\PassbookBundle\Form\Model\EventFormModel:
+Oxygen\PassbookBundle\Model\EventModel:
   properties:
     name:
       - NotBlank: { groups: ['default'] }
@@ -10,11 +10,48 @@ Oxygen\PassbookBundle\Form\Model\EventFormModel:
       - DateTime: { groups: ['default'] }
       - NotNull: { groups: ['default'] }
 
-Oxygen\PassbookBundle\Form\Model\EventProductFormModel:
+Oxygen\PassbookBundle\Model\EventProductModel:
   properties:
     name:
       - NotBlank: { groups: ['default'] }
       - Length: { min: 4, groups: ['default'] }
     url:
       - Url: { groups: ['default'] }      
-      
+
+Oxygen\PassbookBundle\Model\EventTicketModel:
+  properties:
+    name:
+      - NotBlank: { groups: ['default'] }
+      - Length: { min: 4, groups: ['default'] }
+    limitAnimations:
+      - NotBlank: { groups: ['default'] }
+      - Type:
+          type: integer
+          message: La valeur {{ value }} n'est pas un nombre valide.
+          groups: ['default']
+      - GreaterThan:
+          value: 0
+          message: La limite doit au moins être de 1
+          groups: ['default']
+          
+Oxygen\PassbookBundle\Model\EventProductSlotModel:
+  constraints:
+      - Callback:
+          groups: ['default']
+          methods:   [isDateValid]
+  properties:
+    dateStart:
+      - NotBlank: { groups: ['default'] }
+      - DateTime: { message: La date n'est pas valide , groups: ['default'] }
+    dateEnd:
+      - NotBlank: { groups: ['default'] }
+      - DateTime: { message: La date n'est pas valide , groups: ['default'] }
+    seatMax:
+      - Type:
+          type: integer
+          message: La valeur {{ value }} n'est pas un nombre valide.
+          groups: ['default']
+      - GreaterThan:
+          value: 0
+          message: La limite doit au moins être de 1
+          groups: ['default']

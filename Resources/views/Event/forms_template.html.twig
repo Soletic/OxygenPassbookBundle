@@ -1,5 +1,7 @@
 {% extends 'OxygenPassbookBundle::forms_template.html.twig' %}
 
+{# ------ Forms type ------- #}
+
 {% block oxygen_passbook_event_type_widget %}
 {% spaceless %}
 	<div class="row-fluid">
@@ -13,25 +15,89 @@
 			<h3>{{ form_label(form.tickets, null, { plaintext: true }) }}</h3>
 			{{ form_errors(form.tickets) }}
 			<div class="alert alert-info">{% autoescape false %}{{ 'event.helper_tickets'|trans({}, 'oxygen_passbook_form') }}{% endautoescape %}</div>
-			{{ form_errors(form) }}
-			<div class="form-collection accordion" id="event-tickets">
-				{% for i, ticket in form.tickets %}
-				 <div class="accordion-group">
-				 	<div class="accordion-heading">
-						<a class="accordion-toggle" data-toggle="collapse" data-parent="#event-tickets" href="#event-ticket{{ i }}">
-						{{ 'event.ticket_number'|trans({'%i%': (i+1)}, 'oxygen_passbook_form') }}
-						</a>
-					</div>
-					<div id="event-ticket{{ i }}" class="accordion-body collapse {{ (i==0)?'in':'' }}">
-						<div class="accordion-inner">
-						{{ form_errors(ticket) }}
-						{{ form_widget(ticket) }}
-						</div>
-					</div>
-				</div>
-				{% endfor %}
-			</div>
+			{{ form_widget(form.tickets) }}
 		</div>
 	</div>
 {% endspaceless %}
 {% endblock oxygen_passbook_event_type_widget %}
+
+{% block oxygen_passbook_event_product_type_widget %}
+{% spaceless %}
+	<div class="row-fluid">
+		<div class="span6">
+			<h3>{{ 'event.informations'|trans({}, 'oxygen_passbook_form') }}</h3>
+			{{ form_row(form.name) }}
+			{{ form_row(form.description) }}
+			{{ form_row(form.url) }}
+		</div>
+		<div class="span6">
+			<h3>{{ form_label(form.slots, null, { plaintext: true }) }}</h3>
+			<div class="alert alert-info">{% autoescape false %}{{ 'event_product.helper_slots'|trans({}, 'oxygen_passbook_form') }}{% endautoescape %}</div>
+			{{ form_errors(form.slots) }}
+			{{ form_widget(form.slots) }}
+		</div>
+	</div>
+{% endspaceless %}
+{% endblock oxygen_passbook_event_product_type_widget %}
+
+{# ------ Tickets collection ------- #}
+
+{% block _oxygen_passbook_event_type_tickets_widget %}
+{% spaceless %}
+<div class="form-collection accordion" id="event-tickets" data-prototype="{{ form_row(prototype)|e }}">
+{% for i, ticket in form %}
+{{ form_row(ticket) }}
+{% endfor %}
+</div>
+<a href="#" class="btn" data-target="event-tickets">{{ 'event.add_ticket'|trans({}, 'oxygen_passbook_form') }}</a>
+{% endspaceless %}
+{% endblock _oxygen_passbook_event_type_tickets_widget %}
+
+{% block oxygen_passbook_event_ticket_type_row %}
+{% set uniqid = oxygen_uniqid() %}
+<div class="accordion-group form-collections-row" data-uniqid="{{ uniqid }}">
+ 	<div class="accordion-heading">
+		<a class="accordion-toggle" data-toggle="collapse" data-parent="#event-tickets" href="#{{ uniqid }}">
+		{{ 'event.ticket_number'|trans({}, 'oxygen_passbook_form') }}
+		</a>
+	</div>
+	<div id="{{ uniqid }}" class="accordion-body collapse">
+		<div class="accordion-inner">
+		{{ form_errors(form) }}
+		{{ form_widget(form) }}
+		<a class="btn form-collections-row-remove" title="{{ 'event_ticket.remove_slot'|trans({}, 'oxygen_passbook_form')|e }}">{{ 'event_ticket.remove_slot'|trans({}, 'oxygen_passbook_form')|e }}</a>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{# ------ Slots collection ------- #}
+
+{% block _oxygen_passbook_event_product_type_slots_widget %}
+<table class="table form-collections" id="event_product-slots" data-prototype="{{ form_row(prototype)|e }}">
+	<thead>
+		<tr>
+			<th></th>
+			<th>{{ form_label(form.vars.prototype.dateStart, null, { plaintext: true }) }}</th>
+			<th>{{ form_label(form.vars.prototype.dateEnd, null, { plaintext: true }) }}</th>
+			<th>{{ form_label(form.vars.prototype.seatMax, null, { plaintext: true }) }}</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for i, slot in form %}
+		{{ form_row(slot) }}
+		{% endfor %}
+	</tbody>
+</table>
+<a href="#" class="btn" data-target="event_product-slots">{{ 'event_product.add_slot'|trans({}, 'oxygen_passbook_form') }}</a>
+{% endblock %}
+
+{% block oxygen_passbook_event_product_slot_type_row %}
+<tr class="form-collections-row">
+	<td><i class="icon-remove form-collections-row-remove" title="{{ 'event_product.remove_slot'|trans({}, 'oxygen_passbook_form')|e }}"></i></td>
+	<td>{{ form_errors(form.dateStart) }}{{ form_widget(form.dateStart, { attr: { class: 'row-fluid' }}) }}</td>
+	<td>{{ form_errors(form.dateEnd) }}{{ form_widget(form.dateEnd, { attr: { class: 'row-fluid' }}) }}</td>
+	<td>{{ form_errors(form.seatMax) }}{{ form_widget(form.seatMax, { attr: { style: 'width: 40px;' }}) }}</td>
+</tr>
+{% endblock %}
+

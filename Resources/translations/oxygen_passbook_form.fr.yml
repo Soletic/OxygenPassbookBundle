@@ -5,12 +5,30 @@ Date: Date
 Heure: Heure
 label:
     required: Informations obligatoires
-Tickets: Catégories
+Tickets: Catégories de ticket
 Limit animations: Nombre maximum d'animations autorisées
+Seat max: Places max
+Slots: Créneaux horaires
+
+form:
+    choice:
+        empty_value: 'Choisir :'
 
 event:
     informations: Informations
     helper_tickets: |
         Ajouter les catégories de tickets permettant d'accéder à l'évènement.<br />
         Pour chacune d'elles, précisez le nombre d'animations auxquelles la catégorie donne droit.
-    ticket_number: N°%i%
+    ticket_number: Catégorie
+    add_ticket: Ajouter une catégorie de ticket
+    errors:
+        date: La date de début est postérieure à la date fin
+event_ticket:
+    remove_slot: Supprimer
+    
+event_product:
+    add_slot: Ajouter un créneau
+    remove_slot: Supprimer ce créneau
+    helper_slots: |
+        Créez l'ensemble des créneaux horaires auxquels les personnes pourront s'inscrire en précisant le
+        nombre maximum de personnes pouvant y participer.

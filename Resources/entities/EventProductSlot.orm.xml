@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                  http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+                  
+		<entity name="%oxygen_passbook.entities.event_product_slot.class%" table="%table%" repository-class="%oxygen_passbook.entities.event_product_slot.repository%">
+			<id name="id" type="integer" column="id">
+            	<generator strategy="AUTO" />
+       		</id>
+       		
+			<field name="dateStart" type="datetime" nullable="false" />
+			<field name="dateEnd" type="datetime" nullable="false" />
+			<field name="seatMax" type="integer" nullable="false" />
+			
+			<many-to-one field="eventProduct" target-entity="%oxygen_passbook.entities.event_product.class%" inversed-by="slots">
+       		</many-to-one>
+			
+		</entity>
+		
+</doctrine-mapping>

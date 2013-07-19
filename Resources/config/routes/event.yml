@@ -25,6 +25,11 @@ oxygen_passbook_event_product_edit:
     requirements:
         eventId: \d+
         id: \d+
+oxygen_passbook_event_product_copy:
+    pattern:  /products/copy/{id}
+    defaults: { _controller: 'OxygenPassbookBundle:Event:editEventProduct', id: null, eventId: null, copy: true }
+    requirements:
+        id: \d+
 oxygen_passbook_event_product_direct_edit:
     pattern:  /products/edit/{id}
     defaults: { _controller: 'OxygenPassbookBundle:Event:editEventProduct' }

@@ -1,0 +1,8 @@
+event:
+    errors:
+        date: La date de début est postérieure à la date fin
+
+event_slot:
+    errors:
+        date: La date de début est postérieure à la date fin
+        outofbound: Certains créneaux sont en dehors des dates de l'évènement

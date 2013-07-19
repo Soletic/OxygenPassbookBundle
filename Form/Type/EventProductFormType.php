@@ -1,11 +1,15 @@
 <?php
 namespace Oxygen\PassbookBundle\Form\Type;
 
+use Symfony\Component\Form\FormInterface;
+
+use Symfony\Component\Form\FormView;
+
+use Oxygen\FrameworkBundle\Form\Type\EntityEmbeddedFormType;
+
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 use Symfony\Component\Form\FormBuilderInterface;
-
-use Symfony\Component\Form\AbstractType;
 
 /**
  * Formulaire d'édition d'un produit dans évènement
@@ -13,24 +17,24 @@ use Symfony\Component\Form\AbstractType;
  * @author lolozere
  *
  */
-class EventProductFormType extends AbstractType {
+class EventProductFormType extends EntityEmbeddedFormType {
 	
-	protected $dataClass;
-	
-	public function __construct($dataClass) {
-		$this->dataClass = $dataClass;
+	public function buildView(FormView $view, FormInterface $form, array $options) {
+		//print_r(array_keys($view->)); exit();
 	}
 	
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
+		parent::buildForm($builder, $options);
 		$builder->add('name', 'text', array('required' => true, 'translation_domain' => 'oxygen_passbook_form'));
 		$builder->add('description', 'textarea', array('required' => false, 'translation_domain' => 'oxygen_passbook_form'));
 		$builder->add('url', 'url', array('required' => false, 'translation_domain' => 'oxygen_passbook_form'));
+		$builder->add('slots', 'collection', array('type'=> 'oxygen_passbook_event_product_slot_type', 'allow_add' => true, 'allow_delete' => true, 'by_reference' => false));
 	}
 	
 	public function setDefaultOptions(OptionsResolverInterface $resolver) {
+		parent::setDefaultOptions($resolver);
 		$resolver->setDefaults(array(
-				'data_class' => $this->dataClass,
 				'translation_domain' => 'oxygen_passbook_form'
 		));
 	}

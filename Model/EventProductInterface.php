@@ -62,4 +62,14 @@ interface EventProductInterface {
 	*/
 	public function getEvent();
 	
+	/**
+	* @param EventProductSlotInterface $eventProductSlot
+	* @return EventProductSlotInterface
+	*/
+	public function addSlot(EventProductSlotInterface $slot);
+	public function removeSlot(EventProductSlotInterface $slot);
+	/**
+	* @return array
+	*/
+	public function getSlots();
 }

@@ -1,12 +1,19 @@
 <?php
 namespace Oxygen\PassbookBundle\Form\Handler;
 
+use Symfony\Component\Form\FormError;
+
 use Oxygen\FrameworkBundle\Form\Form;
 
 class EventProductForm extends Form {
 	
 	protected $eventProduct;
+	protected $slots = array();
 	protected $event;
+	
+	public function getData() {
+		return $this->eventProduct;
+	}
 	
 	/**
 	* @param EventInterface $event
@@ -44,19 +51,38 @@ class EventProductForm extends Form {
 			if (is_null($this->event)) {
 				throw (new NotFoundHttpException($this->container->get('translator')->trans('oxygen_passbook.event.notfound', array('%id%' => $eventId))));
 			}
+			$this->eventProduct->setEvent($this->event);
+			$this->event->addProduct($this->eventProduct);
 		}
-		$this->getModel()->setEventProduct($this->eventProduct);
+		// Slots
+		if (count($this->getData()->getSlots()) <= 0) {
+			$entity = $this->container->get('oxygen_framework.entities')->getManager('oxygen_passbook.event_product_slot')->createInstance();
+			$this->getData()->addSlot($entity);
+		} else {
+			$this->slots = $this->getData()->getSlots()->getValues();
+		}
 		return $this;
 	}
 	
 	public function onSubmit() {
-		$this->eventProduct->setName($this->getModel()->getName());
-		$this->eventProduct->setUrl($this->getModel()->getUrl());
-		$this->eventProduct->setDescription($this->getModel()->getDescription());
-		$this->eventProduct->setEvent($this->event);
+		// Slots relations
+		foreach($this->getData()->getSlots() as $slot) {
+			if ($slot->getDateStart()->format('Y-m-d H:i') < $this->eventProduct->getEvent()->getDateStart()->format('Y-m-d H:i')
+					|| $slot->getDateStart()->format('Y-m-d H:i') > $this->eventProduct->getEvent()->getDateEnd()->format('Y-m-d H:i')) {
+				$this->form->get('slots')->addError(new FormError('event_slot.errors.outofbound'));
+				return false;
+			}
+			if (is_null($slot->getId())) {
+				$slot->setEventProduct($this->getData());
+				$this->container->get('doctrine.orm.entity_manager')->persist($slot);
+			}
+		}
+		foreach($this->getRemovedElement($this->slots, $this->getData()->getSlots()) as $slot) {
+			$this->container->get('oxygen_framework.entities')->getManager('oxygen_passbook.event_product_slot')->remove($slot);
+		}
+		
 		if (is_null($this->eventProduct->getId())) {
-			$this->event->addProduct($this->eventProduct);
-			$this->get('doctrine.orm.entity_manager')->persist($this->eventProduct);
+			$this->container->get('doctrine.orm.entity_manager')->persist($this->eventProduct);
 		}
 		return true;
 	}
@@ -64,7 +90,7 @@ class EventProductForm extends Form {
 	public function onSuccess() {
 		$this->container->get('doctrine.orm.entity_manager')->flush();
 		$this->container->get('oxygen_framework.templating.messages')->addSuccess(
-				$this->container->get('translator')->trans('oxygen_passbook.event_product.saved', array('%name%' => $this->event->getName()))
+				$this->container->get('translator')->trans('oxygen_passbook.event_product.saved', array('%name%' => $this->eventProduct->getName()))
 			);
 		return true;
 	}

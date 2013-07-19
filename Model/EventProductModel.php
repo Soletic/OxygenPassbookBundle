@@ -1,6 +1,8 @@
 <?php
 namespace Oxygen\PassbookBundle\Model;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
  * A product proposed in an event
  * 
@@ -14,6 +16,11 @@ abstract class EventProductModel implements EventProductInterface {
 	protected $description;
 	protected $url;
 	protected $event;
+	protected $slots;
+	
+	public function __construct() {
+		$this->slots = new ArrayCollection();
+	}
 	
 	/**
 	 * (non-PHPdoc)
@@ -86,5 +93,21 @@ abstract class EventProductModel implements EventProductInterface {
 	{
 	    return $this->event;
 	}
+	/**
+	 * (non-PHPdoc)
+	 * @see Oxygen\PassbookBundle\Model.EventProductInterface::getSlots()
+	 */
+	public function getSlots() {
+		return $this->slots;
+	}
 	
+	public function addSlot(EventProductSlotInterface $slot) {
+		$this->slots->add($slot);
+		return $this;
+	}
+	
+	public function removeSlot(EventProductSlotInterface $slot) {
+		$this->slots->removeElement($slot);
+		return $this;
+	}
 }

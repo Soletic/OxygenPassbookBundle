@@ -37,10 +37,23 @@ class EventController extends OxygenController
 		if (is_null($event)) {
 			throw $this->createNotFoundException($this->get('translator')->trans('oxygen_passbook.event.notfound', array('%id%' => $id)));
 		}
-		$this->getDoctrine()->getEntityManager()->remove($event);
+		$this->get('oxygen_framework.entities')->getManager('oxygen_passbook.event')->remove($event);
 		$this->getDoctrine()->getEntityManager()->flush();
 		$this->get('oxygen_framework.templating.messages')->addSuccess($this->translate('oxygen_passbook.event.deleted', array('%name%' => $event->getName())));
 		return $this->redirect($this->generateUrl('oxygen_passbook_event_list'));
+	}
+	
+	public function deleteEventProductAction($id)
+	{
+		$eventProduct = $this->get('oxygen_framework.entities')->getManager('oxygen_passbook.event_product')->getRepository()->find($id);
+		if (is_null($eventProduct)) {
+			throw $this->createNotFoundException($this->get('translator')->trans('oxygen_passbook.event_product.notfound', array('%id%' => $id)));
+		}
+		$eventId = $eventProduct->getEvent()->getId();
+		$this->get('oxygen_framework.entities')->getManager('oxygen_passbook.event_product')->remove($eventProduct);
+		$this->getDoctrine()->getEntityManager()->flush();
+		$this->get('oxygen_framework.templating.messages')->addSuccess($this->translate('oxygen_passbook.event_product.deleted', array('%name%' => $eventProduct->getName())));
+		return $this->redirect($this->generateUrl('oxygen_passbook_event_product_list', array('eventId' => $eventId)));
 	}
 
 	public function editEventAction($id = null)
@@ -56,12 +69,38 @@ class EventController extends OxygenController
 
 	public function editEventProductAction($eventId = null, $id = null, $copy = false)
 	{
+		if ($copy && !is_null($id)) {
+			$eventProduct = $this->container->get('oxygen_framework.entities')->getManager('oxygen_passbook.event_product')->getRepository()->find($id);
+			if (is_null($eventProduct)) {
+				throw $this->createNotFoundException($this->container->get('translator')->trans('oxygen_passbook.event_product.notfound', array('%id%' => $id)));
+			}
+			$newEventProduct = $this->container->get('oxygen_framework.entities')->getManager('oxygen_passbook.event_product')->createInstance();
+			$newEventProduct->setName($eventProduct->getName() . ' Copie');
+			$newEventProduct->setDescription($eventProduct->getDescription());
+			$newEventProduct->setUrl($eventProduct->getUrl());
+			foreach($eventProduct->getSlots() as $slot) {
+				$newSlot = $this->container->get('oxygen_framework.entities')->getManager('oxygen_passbook.event_product_slot')->createInstance();
+				$newSlot->setDateStart($slot->getDateStart());
+				$newSlot->setDateEnd($slot->getDateEnd());
+				$newSlot->setSeatMax($slot->getSeatMax());
+				$newSlot->setEventProduct($newEventProduct);
+				$newEventProduct->addSlot($newSlot);
+			}
+			$newEventProduct->setEvent($eventProduct->getEvent());
+			$eventProduct->getEvent()->addProduct($newEventProduct);
+			$this->getDoctrine()->getEntityManager()->persist($newEventProduct);
+			$this->getDoctrine()->getEntityManager()->flush();
+			$this->container->get('oxygen_framework.templating.messages')->addSuccess(
+					$this->container->get('translator')->trans('oxygen_passbook.event_product.copied', array('%name%' => $eventProduct->getName()))
+			);
+			return $this->redirect($this->generateUrl('oxygen_passbook_event_product_edit', array('eventId' => $newEventProduct->getEvent()->getId(), 'id' => $newEventProduct->getId())));
+		}
 		$form = $this->get('oxygen_framework.form')->getForm('oxygen_passbook_event_product_form', array(
 				'id' => $id, 'eventId' => $eventId, 'copy' => $copy
 			));
 		if ($form->isSubmitted()) {
 			if ($form->process()) {
-				return $this->redirect($this->generateUrl('oxygen_passbook_event_product_list', array('eventId' => $eventId)));
+				return $this->redirect($this->generateUrl('oxygen_passbook_event_product_list', array('eventId' => $form->getEvent()->getId())));
 			}
 		}
 		return $this->render('OxygenPassbookBundle:Event:edit_product.html.twig', array('form' => $form->createView(), 'event' => $form->getEvent()));

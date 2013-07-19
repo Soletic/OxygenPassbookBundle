@@ -1,11 +1,11 @@
 <?php
 namespace Oxygen\PassbookBundle\Form\Type;
 
+use Oxygen\FrameworkBundle\Form\Type\EntityEmbeddedFormType;
+
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 use Symfony\Component\Form\FormBuilderInterface;
-
-use Symfony\Component\Form\AbstractType;
 
 /**
  * Formulaire d'édition d'un évènement
@@ -13,21 +13,23 @@ use Symfony\Component\Form\AbstractType;
  * @author lolozere
  *
  */
-class EventFormType extends AbstractType {
+class EventFormType extends EntityEmbeddedFormType {
 	
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
-		//throw new \Exception('get validation group');
+		// Transform
+		parent::buildForm($builder, $options);
 		
 		$builder->add('name', 'text', array('required' => true, 'translation_domain' => 'oxygen_passbook_form'));
 		$builder->add('dateStart', 'datetime', array('required' => true, 'translation_domain' => 'oxygen_passbook_form', 'empty_value' => '-'));
 		$builder->add('dateEnd', 'datetime', array('required' => true, 'translation_domain' => 'oxygen_passbook_form', 'empty_value' => '-'));
 		$builder->add('tickets', 'collection', array(
-				'type' => 'oxygen_passbook_event_ticket_type', 'by_reference' => false
+				'type' => 'oxygen_passbook_event_ticket_type', 'by_reference' => false, 'allow_add' => true, 'allow_delete' => true,
 			));
 	}
 	
 	public function setDefaultOptions(OptionsResolverInterface $resolver) {
+		parent::setDefaultOptions($resolver);
 		$resolver->setDefaults(array(
 				'translation_domain' => 'oxygen_passbook_form'
 		));

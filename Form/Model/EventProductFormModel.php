@@ -1,11 +1,15 @@
 <?php
 namespace Oxygen\PassbookBundle\Form\Model;
 
+use Oxygen\PassbookBundle\Model\EventProductSlotInterface;
+
+use Oxygen\FrameworkBundle\Form\Model\EntityEmbeddedInterface;
+
 use Oxygen\PassbookBundle\Model\EventProductInterface;
 
 use Oxygen\PassbookBundle\Model\EventProductModel;
 
-class EventProductFormModel extends EventProductModel
+class EventProductFormModel extends EventProductModel implements EntityEmbeddedInterface
 {
 
 	/**
@@ -17,23 +21,19 @@ class EventProductFormModel extends EventProductModel
 	* @param EventProductInterface $eventProduct
 	* @return EventProductFormModel
 	*/
-	public function setEventProduct($eventProduct)
+	public function setEntity($entity)
 	{
-	    $this->eventProduct = $eventProduct;
-	    $this->setName($eventProduct->getName());
-	    $this->setDescription($eventProduct->getDescription());
-	    $this->setUrl($eventProduct->getUrl());
+	    $this->eventProduct = $entity;
 	    return $this;
 	}
 	 
 	/**
 	* @return EventProductInterface
 	*/
-	public function getEventProduct()
+	public function getEntity()
 	{
 	    return $this->eventProduct;
 	}
-
 
 	public function getId()
 	{
