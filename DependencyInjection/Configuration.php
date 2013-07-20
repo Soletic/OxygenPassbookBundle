@@ -31,6 +31,8 @@ class Configuration extends OxygenConfiguration implements ConfigurationInterfac
         $this->addEntityConfiguration($rootNode, 'Oxygen\PassbookBundle\Entity\EventProduct', 'Oxygen\PassbookBundle\Entity\Repository\EventProductRepository');
         $this->addEntityConfiguration($rootNode, 'Oxygen\PassbookBundle\Entity\EventTicket', 'Oxygen\PassbookBundle\Entity\Repository\EventTicketRepository');
         $this->addEntityConfiguration($rootNode, 'Oxygen\PassbookBundle\Entity\EventProductSlot', 'Oxygen\PassbookBundle\Entity\Repository\EventProductSlotRepository');
+        $this->addEntityConfiguration($rootNode, 'Oxygen\PassbookBundle\Entity\BookingSlot', 'Oxygen\PassbookBundle\Entity\Repository\BookingSlotRepository');
+        $this->addEntityConfiguration($rootNode, 'Oxygen\PassbookBundle\Entity\BookingPerson', 'Oxygen\PassbookBundle\Entity\Repository\BookingPersonRepository');
 
         return $treeBuilder;
     }

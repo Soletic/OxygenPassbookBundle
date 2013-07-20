@@ -1,3 +1,4 @@
+# Grid
 oxygen_passbook_event:
     dateStart: Début le
     id: '#'
@@ -12,9 +13,25 @@ oxygen_passbook_event_product:
     description: Informations
     name: Animation
     Actions: ''
+    
+oxygen_passbook_event_booking:
+    dateStart: Début le
+    id: '#'
+    dateEnd: Fin le
+    name: Evènement
+    Actions: ''
+    bookings: Réservations
+    list_booking: Lister
+
+oxygen_passbook_booking_person:
+    id: '#'
+    name: Nom
+    email: Email
+    Actions: ''
 
 No result: Aucun résultat
 
+# Form
 oxygen_passbook: 
     event:
         section_name: Evènements
@@ -43,3 +60,9 @@ oxygen_passbook:
         saved: Animation <strong>%name%</strong> correctement enregistrée
         deleted: Animation <strong>%name%</strong> supprimée
         copied: Nouvelle animation créée à partir de <strong>%name%</strong>
+    booking:
+        event_list:
+            section_name: Evènements en cours
+        bookings:
+            section_name: %event% > Réservations
+        add: Ajouter une réservation

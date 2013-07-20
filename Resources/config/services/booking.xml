@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    
+    <parameters>
+    	<!-- event booking -->
+        <parameter key="oxygen_passbook.event_booking.grid.configuration_class">Oxygen\PassbookBundle\Entity\Grid\EventBookingGridConfiguration</parameter>
+        <parameter key="oxygen_passbook.event_booking.grid.columns_handler.bookings">Oxygen\PassbookBundle\Grid\Booking\BookingEventsConfiguration</parameter>
+    
+    	<!-- booking person -->
+    	 <parameter key="oxygen_passbook.booking_person.grid.configuration_class">Oxygen\PassbookBundle\Entity\Grid\BookingPersonGridConfiguration</parameter>
+    </parameters>
+
+    <services>
+    	<!-- Grid -->
+        <service id="oxygen_passbook.grid_configuration.event_booking" class="%oxygen_passbook.event_booking.grid.configuration_class%">
+        	<tag name="oxygen.grid" gridId="oxygen_passbook_event_booking" 
+        		sourceType="entity" sourceReference="oxygen_passbook.event" />
+        	<tag name="oxygen.grid_column" id="bookings" sortable="false" filterable="false" />
+        	<!-- <tag name="oxygen.grid_action" route="oxygen_passbook_event_edit" handler="%oxygen_passbook.event_booking.grid.actions_handler.add_booking%" /> -->
+        </service>
+        <service id="oxygen_passbook.grid_configuration.booking_person" class="%oxygen_passbook.booking_person.grid.configuration_class%">
+        	<tag name="oxygen.grid" gridId="oxygen_passbook_booking_person" 
+        		sourceType="entity" sourceReference="oxygen_passbook.booking_person" groupBy="id" />
+        </service>
+        
+    </services>
+    
+</container>

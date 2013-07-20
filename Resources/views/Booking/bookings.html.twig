@@ -1,0 +1,13 @@
+{% extends oxygen_layout() %}
+
+{% block oxygen_passbook_title %}
+{{ 'oxygen_passbook.booking.bookings.section_name'|trans({ '%event%': event.getName() }) }}
+{% endblock oxygen_passbook_title %}
+
+{% block oxygen_passbook_content %}
+{{ parent() }}
+<p>
+	<a href="{{ path('oxygen_passbook_booking_event_list') }}">Revenir aux évènements</a>
+</p>
+{{ grid(grid, 'OxygenPassbookBundle:Booking:grid_template.html.twig') }}
+{% endblock oxygen_passbook_content %}

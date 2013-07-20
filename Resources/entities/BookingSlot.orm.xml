@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                  http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+                  
+		<entity name="%oxygen_passbook.entities.booking_slot.class%" table="%table%" repository-class="%oxygen_passbook.entities.booking_slot.repository%">
+			<id name="id" type="integer" column="id">
+            	<generator strategy="AUTO" />
+       		</id>
+
+			<field name="createdAt" type="datetime" nullable="false" />
+			
+			<many-to-one field="bookingPerson" target-entity="%oxygen_passbook.entities.booking_person.class%" inversed-by="bookingSlots">
+       		</many-to-one>
+       		
+       		<many-to-one field="eventProductSlot" target-entity="%oxygen_passbook.entities.event_product_slot.class%">
+       		</many-to-one>
+			
+		</entity>
+		
+</doctrine-mapping>

@@ -27,7 +27,9 @@ class EventController extends OxygenController
 		if (is_null($event)) {
 			throw $this->createNotFoundException($this->get('translator')->trans('oxygen_passbook.event.notfound', array('%id%' => $id)));
 		}
-		$grid_view = $this->get('oxygen_datagrid.loader')->getView('oxygen_passbook_event_product');
+		$grid_view = $this->get('oxygen_datagrid.loader')->getView(
+				'oxygen_passbook_event_product', array('eventId' => $eventId)
+			);
 		return $grid_view->getGridResponse('OxygenPassbookBundle:Event:list_event_product.html.twig', array('event' => $event));
 	}
 

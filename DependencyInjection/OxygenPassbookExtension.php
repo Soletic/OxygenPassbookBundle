@@ -27,5 +27,6 @@ class OxygenPassbookExtension extends OxygenExtension
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services/event.xml');
+        $loader->load('services/booking.xml');
     }
 }

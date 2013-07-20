@@ -1,0 +1,18 @@
+# Events
+oxygen_passbook_booking_event_list:
+    pattern:  /booking/events
+    defaults: { _controller: 'OxygenPassbookBundle:Booking:listEvents' }
+    
+# Add
+oxygen_passbook_booking_add:
+    pattern:  /booking/add/{eventId}
+    defaults: { _controller: 'OxygenPassbookBundle:Booking:add' }
+    requirements:
+        eventId: \d+
+        
+# List
+oxygen_passbook_booking_list:
+    pattern:  /booking/list/{eventId}
+    defaults: { _controller: 'OxygenPassbookBundle:Booking:listBookings' }
+    requirements:
+        eventId: \d+
