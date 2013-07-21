@@ -22,6 +22,15 @@ abstract class BookingSlotModel implements BookingSlotInterface {
 	 * @var BookingPersonInterface
 	 */
 	protected $bookingPerson;
+	/**
+	 * 
+	 * @var EventTicketInterface
+	 */
+	protected $eventTicket;
+	
+	public function __construct() {
+		$this->createdAt = new \DateTime();
+	}
 	
 	public function getId() {
 		return $this->id;
@@ -77,4 +86,24 @@ abstract class BookingSlotModel implements BookingSlotInterface {
 	public function getEventProductSlot() {
 		return $this->eventProductSlot;
 	}
+
+	/**
+	 * (non-PHPdoc)
+	 * @see Oxygen\PassbookBundle\Model.BookingSlotInterface::setEventTicket()
+	 */
+	public function setEventTicket($eventTicket)
+	{
+	    $this->eventTicket = $eventTicket;
+	    return $this;
+	}
+	 
+	/**
+	 * (non-PHPdoc)
+	 * @see Oxygen\PassbookBundle\Model.BookingSlotInterface::getEventTicket()
+	 */
+	public function getEventTicket()
+	{
+	    return $this->eventTicket;
+	}
+	
 }

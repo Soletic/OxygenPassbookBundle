@@ -14,6 +14,10 @@ interface EventInterface {
 	 * @return integer
 	 */
 	public function getId();
+	
+	public function getType();
+	public function setType($type);
+	
 	/**
 	 * Name of the pass. Example : Pass Bien-être 2013
 	 * 

@@ -1,6 +1,8 @@
 <?php
 namespace Oxygen\PassbookBundle\Model;
 
+use Oxygen\FrameworkBundle\Locale\Locale;
+
 use Symfony\Component\Validator\ExecutionContext;
 
 use Symfony\Component\Validator\ExecutionContextInterface;
@@ -113,5 +115,20 @@ abstract class EventProductSlotModel implements EventProductSlotInterface {
         	}
         }
     }
-	
+    /**
+     * Return string representation of slot according locale
+     * 
+     * @return string
+     */
+    public function __toString() {
+    	if ($this->dateStart->format('Y-m-d') == $this->dateEnd->format('Y-m-d')) {
+    		$s = \IntlDateFormatter::create(Locale::getDefault(), \IntlDateFormatter::SHORT, \IntlDateFormatter::NONE)->format($this->dateStart->getTimestamp());
+    		$s .= ' - ' . \IntlDateFormatter::create(Locale::getDefault(), \IntlDateFormatter::NONE, \IntlDateFormatter::SHORT)->format($this->dateStart->getTimestamp());
+    		$s .= ' > ' . \IntlDateFormatter::create(Locale::getDefault(), \IntlDateFormatter::NONE, \IntlDateFormatter::SHORT)->format($this->dateEnd->getTimestamp());
+    	} else {
+    		$s = \IntlDateFormatter::create(Locale::getDefault(), \IntlDateFormatter::SHORT, \IntlDateFormatter::SHORT)->format($this->dateStart->getTimestamp());
+    		$s .= ' > ' . \IntlDateFormatter::create(Locale::getDefault(), \IntlDateFormatter::SHORT, \IntlDateFormatter::SHORT)->format($this->dateEnd->getTimestamp());
+    	}
+    	return $s;
+    }
 }

@@ -19,10 +19,6 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class EventProductFormType extends EntityEmbeddedFormType {
 	
-	public function buildView(FormView $view, FormInterface $form, array $options) {
-		//print_r(array_keys($view->)); exit();
-	}
-	
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		parent::buildForm($builder, $options);

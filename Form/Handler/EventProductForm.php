@@ -1,6 +1,8 @@
 <?php
 namespace Oxygen\PassbookBundle\Form\Handler;
 
+use Oxygen\PassbookBundle\Booking\Exception\BookingsFoundException;
+
 use Symfony\Component\Form\FormError;
 
 use Oxygen\FrameworkBundle\Form\Form;
@@ -78,7 +80,12 @@ class EventProductForm extends Form {
 			}
 		}
 		foreach($this->getRemovedElement($this->slots, $this->getData()->getSlots()) as $slot) {
-			$this->container->get('oxygen_framework.entities')->getManager('oxygen_passbook.event_product_slot')->remove($slot);
+			try {
+				$this->container->get('oxygen_framework.entities')->getManager('oxygen_passbook.event_product_slot')->remove($slot);
+			} catch(BookingsFoundException $e) {
+				$this->form->addError(new FormError('event_slot.errors.bookings_exist', null, array('%name%' => $slot->__toString())));
+				return false;
+			}
 		}
 		
 		if (is_null($this->eventProduct->getId())) {

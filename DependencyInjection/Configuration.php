@@ -27,6 +27,18 @@ class Configuration extends OxygenConfiguration implements ConfigurationInterfac
         
         //$rootNode->children()
         
+        $rootNode->children()
+    			->arrayNode('event_types')
+    				->example(array('care'))
+                    ->isRequired()
+                    ->requiresAtLeastOneElement()
+                    ->beforeNormalization()
+                    ->ifTrue(function($v){ return !is_array($v); })
+                    ->then(function($v){ return array($v); })
+                    ->end()
+				->prototype('scalar')->end()
+    		->end();
+        
         $this->addEntityConfiguration($rootNode, 'Oxygen\PassbookBundle\Entity\Event', 'Oxygen\PassbookBundle\Entity\Repository\EventRepository');
         $this->addEntityConfiguration($rootNode, 'Oxygen\PassbookBundle\Entity\EventProduct', 'Oxygen\PassbookBundle\Entity\Repository\EventProductRepository');
         $this->addEntityConfiguration($rootNode, 'Oxygen\PassbookBundle\Entity\EventTicket', 'Oxygen\PassbookBundle\Entity\Repository\EventTicketRepository');

@@ -62,6 +62,18 @@ abstract class BookingPersonModel implements BookingPersonInterface {
 	    return $this->email;
 	}
 	
+	public function refreshBookingSlot(BookingSlotInterface $bookingSlot) {
+		foreach($this->bookingSlots as $bookingSlotCollection) {
+			if ($bookingSlotCollection->getId() == $bookingSlot->getId()) {
+				$bookingSlotCollection->setEventTicket($bookingSlot->getEventTicket());
+				$bookingSlotCollection->setBookingPerson($bookingSlot->getBookingPerson());
+				$bookingSlotCollection->setEventProductSlot($bookingSlot->getEventProductSlot());
+				return $bookingSlotCollection;
+			}
+		}
+		return null;
+	}
+	
 	/**
 	 * (non-PHPdoc)
 	 * @see Oxygen\PassbookBundle\Model.BookingPersonInterface::addBookingSlot()

@@ -5,25 +5,77 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     
     <parameters>
+    	<parameter key="oxygen_passbook.booking.class">Oxygen\PassbookBundle\Booking\EventBooking</parameter>
+    	
     	<!-- event booking -->
         <parameter key="oxygen_passbook.event_booking.grid.configuration_class">Oxygen\PassbookBundle\Entity\Grid\EventBookingGridConfiguration</parameter>
         <parameter key="oxygen_passbook.event_booking.grid.columns_handler.bookings">Oxygen\PassbookBundle\Grid\Booking\BookingEventsConfiguration</parameter>
     
-    	<!-- booking person -->
-    	 <parameter key="oxygen_passbook.booking_person.grid.configuration_class">Oxygen\PassbookBundle\Entity\Grid\BookingPersonGridConfiguration</parameter>
+    	<!-- booking -->
+    	<parameter key="oxygen_passbook.booking_person.grid.configuration_class">Oxygen\PassbookBundle\Entity\Grid\BookingPersonGridConfiguration</parameter>
+    	    
+    	<!-- forms type -->
+    	<parameter key="oxygen_passbook.form.choice_product_slot.type_class">Oxygen\PassbookBundle\Form\Type\BookingSlotChoiceFormType</parameter>
+    	<parameter key="oxygen_passbook.form.booking_person.type_class">Oxygen\PassbookBundle\Form\Type\BookingPersonFormType</parameter>
+    	<parameter key="oxygen_passbook.form.booking_slot.type_class">Oxygen\PassbookBundle\Form\Type\BookingSlotFormType</parameter>
+    	<parameter key="oxygen_passbook.form.booking.type_class">Oxygen\PassbookBundle\Form\Type\BookingFormType</parameter>
+    
+    	<!-- oxygen forms -->
+    	<parameter key="oxygen_passbook.booking_person.form.model_class">Oxygen\PassbookBundle\Form\Model\BookingPersonFormModel</parameter>
+    	<parameter key="oxygen_passbook.booking_slot.form.model_class">Oxygen\PassbookBundle\Form\Model\BookingSlotFormModel</parameter>
+    	<parameter key="oxygen_passbook.booking.form.model_class">Oxygen\PassbookBundle\Form\Model\BookingFormModel</parameter>
+    	<parameter key="oxygen_passbook.booking.form.class">Oxygen\PassbookBundle\Form\Handler\BookingForm</parameter>
     </parameters>
 
     <services>
     	<!-- Grid -->
         <service id="oxygen_passbook.grid_configuration.event_booking" class="%oxygen_passbook.event_booking.grid.configuration_class%">
         	<tag name="oxygen.grid" gridId="oxygen_passbook_event_booking" 
-        		sourceType="entity" sourceReference="oxygen_passbook.event" />
+        		sourceType="entity" sourceReference="oxygen_passbook.event" hide="type" />
         	<tag name="oxygen.grid_column" id="bookings" sortable="false" filterable="false" />
-        	<!-- <tag name="oxygen.grid_action" route="oxygen_passbook_event_edit" handler="%oxygen_passbook.event_booking.grid.actions_handler.add_booking%" /> -->
         </service>
         <service id="oxygen_passbook.grid_configuration.booking_person" class="%oxygen_passbook.booking_person.grid.configuration_class%">
         	<tag name="oxygen.grid" gridId="oxygen_passbook_booking_person" 
         		sourceType="entity" sourceReference="oxygen_passbook.booking_person" groupBy="id" />
+        	<tag name="oxygen.grid_action" route="oxygen_passbook_booking_edit" type="edit" parameters="eventId" />
+        	<tag name="oxygen.grid_action" route="oxygen_passbook_booking_delete" type="delete" parameters="eventId" />
+        </service>
+        
+        <!-- Forms type -->
+        <service id="oxygen_passbook.form.choice_slot.type" class="%oxygen_passbook.form.choice_product_slot.type_class%">
+        	<tag name="form.type" alias="oxygen_passbook_choice_slot_type" />
+        	<argument type="service" id="oxygen_framework.entities" />
+        	<argument type="service" id="translator" />
+        </service>
+        <service id="oxygen_passbook.form.booking_person.type" class="%oxygen_passbook.form.booking_person.type_class%">
+        	<tag name="form.type" alias="oxygen_passbook_booking_person_type" />
+        	<argument>%oxygen_passbook.booking_person.form.model_class%</argument>
+        	<argument>%oxygen_passbook.entities.booking_person.class%</argument>
+        </service>
+        <service id="oxygen_passbook.form.booking_slot.type" class="%oxygen_passbook.form.booking_slot.type_class%">
+        	<tag name="form.type" alias="oxygen_passbook_booking_slot_type" />
+        	<argument>%oxygen_passbook.booking_slot.form.model_class%</argument>
+        	<argument>%oxygen_passbook.entities.booking_slot.class%</argument>
+        </service>
+        <service id="oxygen_passbook.form.booking.type" class="%oxygen_passbook.form.booking.type_class%">
+        	<tag name="form.type" alias="oxygen_passbook_booking_type" />
+        </service>
+        
+        <!-- Oxygen Form -->
+        <service id="oxygen_passbook.form.booking" class="%oxygen_passbook.booking.form.class%">
+        	<tag name="oxygen.form" id="oxygen_passbook_booking_form" 
+        		formType="oxygen_passbook_booking_type" dataClass="%oxygen_passbook.booking.form.model_class%" />
+        </service>
+        
+        <!-- booking -->
+        <service id="oxygen_passbook.bookings" class="%oxygen_passbook.booking.class%">
+        	<argument type="service" id="oxygen_framework.entities" />
+        </service>
+        
+        <!-- data control -->
+        <service id="oxygen_passbook.bookings" class="Oxygen\PassbookBundle\Booking\EventListener\EventsEventListener">
+        	<argument type="service" id="oxygen_framework.entities" />
+        	<tag name="kernel.event_subscriber" />
         </service>
         
     </services>

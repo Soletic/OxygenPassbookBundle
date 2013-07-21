@@ -9,3 +9,7 @@
 {% block grid_column_description_cell %}
 {{ value|nl2br }}
 {% endblock %}
+
+{% block grid_column_type_cell %}
+{{ ('event_type.'~value~'.name')|trans }}
+{% endblock %}

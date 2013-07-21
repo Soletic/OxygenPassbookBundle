@@ -3,6 +3,8 @@ Oxygen\PassbookBundle\Model\EventModel:
     name:
       - NotBlank: { groups: ['default'] }
       - Length: { min: 4, groups: ['default'] }
+    type:
+      - NotBlank: { groups: ['default'] }
     dateStart:
       - DateTime: { groups: ['default'] }
       - NotNull: { groups: ['default'] }
@@ -39,6 +41,8 @@ Oxygen\PassbookBundle\Model\EventProductSlotModel:
       - Callback:
           groups: ['default']
           methods:   [isDateValid]
+      - Oxygen\PassbookBundle\Validator\Constraints\MinSeat:
+          groups: ['default'] 
   properties:
     dateStart:
       - NotBlank: { groups: ['default'] }
@@ -51,7 +55,15 @@ Oxygen\PassbookBundle\Model\EventProductSlotModel:
           type: integer
           message: La valeur {{ value }} n'est pas un nombre valide.
           groups: ['default']
-      - GreaterThan:
-          value: 0
-          message: La limite doit au moins être de 1
-          groups: ['default']
+      #- GreaterThan:
+      #    value: 0
+      #    message: La limite doit au moins être de 1
+      #    groups: ['default']
+
+Oxygen\PassbookBundle\Model\BookingPersonModel:
+    properties:
+        name:
+          - NotBlank: { groups: ['default'] }
+        email:
+          - NotBlank: { groups: ['default'] }
+          - Email: { groups: ['default'] }

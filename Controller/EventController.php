@@ -1,5 +1,7 @@
 <?php
 namespace Oxygen\PassbookBundle\Controller;
+use Oxygen\PassbookBundle\Booking\Exception\BookingsFoundException;
+
 use Oxygen\PassbookBundle\Form\Model\EventProductFormModel;
 
 use Oxygen\PassbookBundle\Form\Model\EventFormModel;
@@ -39,9 +41,13 @@ class EventController extends OxygenController
 		if (is_null($event)) {
 			throw $this->createNotFoundException($this->get('translator')->trans('oxygen_passbook.event.notfound', array('%id%' => $id)));
 		}
-		$this->get('oxygen_framework.entities')->getManager('oxygen_passbook.event')->remove($event);
-		$this->getDoctrine()->getEntityManager()->flush();
-		$this->get('oxygen_framework.templating.messages')->addSuccess($this->translate('oxygen_passbook.event.deleted', array('%name%' => $event->getName())));
+		try {
+			$this->get('oxygen_framework.entities')->getManager('oxygen_passbook.event')->remove($event);
+			$this->getDoctrine()->getEntityManager()->flush();
+			$this->get('oxygen_framework.templating.messages')->addSuccess($this->translate('oxygen_passbook.event.deleted', array('%name%' => $event->getName())));
+		} catch(BookingsFoundException $e) {
+			$this->get('oxygen_framework.templating.messages')->addError($this->translate('oxygen_passbook.event.bookings_exist', array('%name%' => $event->getName())));
+		}
 		return $this->redirect($this->generateUrl('oxygen_passbook_event_list'));
 	}
 	
@@ -52,9 +58,13 @@ class EventController extends OxygenController
 			throw $this->createNotFoundException($this->get('translator')->trans('oxygen_passbook.event_product.notfound', array('%id%' => $id)));
 		}
 		$eventId = $eventProduct->getEvent()->getId();
-		$this->get('oxygen_framework.entities')->getManager('oxygen_passbook.event_product')->remove($eventProduct);
-		$this->getDoctrine()->getEntityManager()->flush();
-		$this->get('oxygen_framework.templating.messages')->addSuccess($this->translate('oxygen_passbook.event_product.deleted', array('%name%' => $eventProduct->getName())));
+		try {
+			$this->get('oxygen_framework.entities')->getManager('oxygen_passbook.event_product')->remove($eventProduct);
+			$this->getDoctrine()->getEntityManager()->flush();
+			$this->get('oxygen_framework.templating.messages')->addSuccess($this->translate('oxygen_passbook.event_product.deleted', array('%name%' => $eventProduct->getName())));
+		} catch(BookingsFoundException $e) {
+			$this->get('oxygen_framework.templating.messages')->addError($this->translate('oxygen_passbook.event_product.bookings_exist', array('%name%' => $eventProduct->getName())));
+		}
 		return $this->redirect($this->generateUrl('oxygen_passbook_event_product_list', array('eventId' => $eventId)));
 	}
 

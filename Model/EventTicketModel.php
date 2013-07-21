@@ -71,4 +71,8 @@ abstract class EventTicketModel implements EventTicketInterface {
 	{
 	    return $this->name;
 	}
+
+	public function __toString() {
+		return $this->getName();
+	}
 }

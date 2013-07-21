@@ -9,6 +9,8 @@ Tickets: Catégories de ticket
 Limit animations: Nombre maximum d'animations autorisées
 Seat max: Places max
 Slots: Créneaux horaires
+Type: Nature des animations
+Event ticket: Catégorie du billet
 
 form:
     choice:

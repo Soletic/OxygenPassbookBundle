@@ -17,6 +17,7 @@ abstract class EventModel implements EventInterface {
 	protected $dateEnd;
 	protected $products;
 	protected $tickets;
+	protected $type;
 	
 	public function __construct() {
 		$this->products = new ArrayCollection();
@@ -28,6 +29,19 @@ abstract class EventModel implements EventInterface {
 	 * @see Oxygen\PassbookBundle\Model.EventInterface::getId()
 	 */
 	public function getId() { return $this->id; }
+	/**
+	 * (non-PHPdoc)
+	 * @see Oxygen\PassbookBundle\Model.EventInterface::getType()
+	 */
+	public function getType() {
+		return $this->type;
+	}
+	
+	public function setType($type) {
+		$this->type = $type;
+		return $this;
+	}
+	
 	/**
 	 * (non-PHPdoc)
 	 * @see Oxygen\PassbookBundle\Model.EventInterface::setName()

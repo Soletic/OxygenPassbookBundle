@@ -23,10 +23,13 @@ class OxygenPassbookExtension extends OxygenExtension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
         
+        $container->setParameter('oxygen_passbook.event_types', $config['event_types']);
         $this->mapsEntitiesParameter($container, 'oxygen_passbook', $config);
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services/event.xml');
         $loader->load('services/booking.xml');
+        $loader->load('services/printing.xml');
+        $loader->load('services/validators.xml');
     }
 }

@@ -6,6 +6,7 @@ oxygen_passbook_event:
     name: Evènement
     Actions: ''
     products: Animations
+    type: Nature des animations
     
 oxygen_passbook_event_product:
     url: Lien de la fiche
@@ -22,6 +23,14 @@ oxygen_passbook_event_booking:
     Actions: ''
     bookings: Réservations
     list_booking: Lister
+    
+oxygen_passbook_event_printing:
+    dateStart: Début le
+    id: '#'
+    dateEnd: Fin le
+    name: Evènement
+    Actions: ''
+    bookings: Réservations
 
 oxygen_passbook_booking_person:
     id: '#'
@@ -30,6 +39,34 @@ oxygen_passbook_booking_person:
     Actions: ''
 
 No result: Aucun résultat
+
+# Form to book a person
+form_book_admin:
+    user_data: Informations sur la personne
+form_book:
+    slot:
+        full: %label% - Complet
+        remaining: %label% - %count% places
+        remaining_one: %label% - 1 place 
+
+
+# Nature des animations
+event_type:
+    care:
+        name: soin
+        Name: Soins
+        form_book_admin:
+            choose_title: Choisir les soins
+            choose_helper: |
+                Parmi les soins proposés ci-dessous, sélectionner un créneau horaire.
+    conference:
+        name: conférence
+        Name: Conférences
+        form_book_admin:
+            choose_title: Choisir les conférences
+            choose_helper: |
+                Parmi les conférences proposées ci-dessous, sélectionner un créneau horaire.
+            
 
 # Form
 oxygen_passbook: 
@@ -47,6 +84,7 @@ oxygen_passbook:
             name: Nom
         saved: Evènement <strong>%name%</strong> correctement enregistré
         deleted: Evènement <strong>%name%</strong> supprimé
+        bookings_exist: Suppression impossible de %name% car des réservations existent
     event_product:
         section_name: %event% > Animations
         help: Pour chaque évènement, des animations sont proposées à différents créneaux horaires.
@@ -60,9 +98,20 @@ oxygen_passbook:
         saved: Animation <strong>%name%</strong> correctement enregistrée
         deleted: Animation <strong>%name%</strong> supprimée
         copied: Nouvelle animation créée à partir de <strong>%name%</strong>
+        bookings_exist: Suppression impossible de %name% car des réservations existent
+    booking_person:
+        notfound: La personne %id% n'existe pas
     booking:
         event_list:
             section_name: Evènements en cours
         bookings:
             section_name: %event% > Réservations
+        edit:
+            section_name: %event% > Réserver
+            save: Réserver
         add: Ajouter une réservation
+        remove_bookings_event: Réservations de %name% correctement supprimées
+        saved: Réservations enregistrées pour %name%
+    printing:
+        event_list:
+            section_name: Impressions

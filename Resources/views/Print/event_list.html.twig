@@ -1,0 +1,10 @@
+{% extends oxygen_layout() %}
+
+{% block oxygen_passbook_title %}
+{{ 'oxygen_passbook.printing.event_list.section_name'|trans }}
+{% endblock oxygen_passbook_title %}
+
+{% block oxygen_passbook_content %}
+{{ parent() }}
+{{ grid(grid, 'OxygenPassbookBundle:Print:grid_template.html.twig') }}
+{% endblock oxygen_passbook_content %}

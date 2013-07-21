@@ -43,4 +43,16 @@ interface BookingSlotInterface {
 	* @return EventProductSlotInterface
 	*/
 	public function getEventProductSlot();
+
+	/**
+	* @param EventTicketInterface $eventTicket
+	* @return BookingSlotInterface
+	*/
+	public function setEventTicket($eventTicket);
+	 
+	/**
+	* @return EventTicketInterface
+	*/
+	public function getEventTicket();
+
 }

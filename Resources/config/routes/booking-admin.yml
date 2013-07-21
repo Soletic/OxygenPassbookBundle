@@ -3,12 +3,24 @@ oxygen_passbook_booking_event_list:
     pattern:  /booking/events
     defaults: { _controller: 'OxygenPassbookBundle:Booking:listEvents' }
     
-# Add
+# Edit
 oxygen_passbook_booking_add:
     pattern:  /booking/add/{eventId}
-    defaults: { _controller: 'OxygenPassbookBundle:Booking:add' }
+    defaults: { _controller: 'OxygenPassbookBundle:Booking:editBooking' }
     requirements:
         eventId: \d+
+oxygen_passbook_booking_edit:
+    pattern:  /booking/{eventId}/edit/{id}
+    defaults: { _controller: 'OxygenPassbookBundle:Booking:editBooking' }
+    requirements:
+        eventId: \d+
+        id: \d+
+oxygen_passbook_booking_delete:
+    pattern:  /booking/{eventId}/delete/{id}
+    defaults: { _controller: 'OxygenPassbookBundle:Booking:deleteBookings' }
+    requirements:
+        eventId: \d+
+        id: \d+
         
 # List
 oxygen_passbook_booking_list:

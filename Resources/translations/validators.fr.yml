@@ -6,3 +6,16 @@ event_slot:
     errors:
         date: La date de début est postérieure à la date fin
         outofbound: Certains créneaux sont en dehors des dates de l'évènement
+        bookings_exist: Impossible de supprimer le créneau horaire %name% car des réservations existent dessus
+        
+booking:
+    errors:
+        noselection: Vous devez sélectionner au moins un créneau horaire
+        booking_exist: %mail% a déjà des réservations. Pour les modifier, vous devez lister les réservations de %name% et modifier les réservations faites par cette personne. 
+        booking_full: Créneau horaire complet. Veuillez en sélectionner un autre.
+        
+booking.errors.limit_animation|booking.errors.limit_animations: |
+    Vous n'avez droit qu'à %max% créneau horaire|Vous n'avez droit qu'à %max% créneaux horaires
+    
+%bookings% réservations existent déjà et le nombre de places doit donc au moins être de %bookings%: |
+    %bookings% réservations existent déjà et le nombre de places doit donc au moins être de %bookings%

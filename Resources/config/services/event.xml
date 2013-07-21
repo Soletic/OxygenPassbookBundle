@@ -28,6 +28,10 @@
         <parameter key="oxygen_passbook.event_product_slot.form.type_class">Oxygen\PassbookBundle\Form\Type\EventProductSlotFormType</parameter>
         <!-- event ticket form-->
         <parameter key="oxygen_passbook.event_product_slot.form.model_class">Oxygen\PassbookBundle\Form\Model\EventProductSlotFormModel</parameter>
+    
+    	<!-- forms type -->
+    	<parameter key="oxygen_passbook.form.choice_event_ticket.type_class">Oxygen\PassbookBundle\Form\Type\EventTicketChoiceFormType</parameter>
+    
     </parameters>
 
     <services>
@@ -48,10 +52,20 @@
         </service>
         
         <!-- Form Type -->
+        <service id="oxygen_passbook.form.choice_event_ticket.type" class="%oxygen_passbook.form.choice_event_ticket.type_class%">
+        	<tag name="form.type" alias="oxygen_passbook_choice_event_ticket_type" />
+        	<argument type="service" id="oxygen_framework.entities" />
+        </service>
         <service id="oxygen_passbook.form.event.type" class="%oxygen_passbook.event.form.type_class%">
         	<tag name="form.type" alias="oxygen_passbook_event_type" />
         	<argument>%oxygen_passbook.event.form.model_class%</argument>
         	<argument>%oxygen_passbook.entities.event.class%</argument>
+        	<call method="setTranslator">
+        		<argument type="service" id="translator" />
+        	</call>
+        	<call method="setTypes">
+        		<argument>%oxygen_passbook.event_types%</argument>
+        	</call>
         </service>
         <service id="oxygen_passbook.form.event_product.type" class="%oxygen_passbook.event_product.form.type_class%">
         	<tag name="form.type" alias="oxygen_passbook_event_product_type" />

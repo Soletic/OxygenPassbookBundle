@@ -16,6 +16,9 @@
        		
        		<many-to-one field="eventProductSlot" target-entity="%oxygen_passbook.entities.event_product_slot.class%">
        		</many-to-one>
+       		
+       		<many-to-one field="eventTicket" target-entity="%oxygen_passbook.entities.event_ticket.class%">
+       		</many-to-one>
 			
 		</entity>
 		

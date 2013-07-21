@@ -1,7 +1,9 @@
 {% extends oxygen_layout() %}
 
+
+
 {% block oxygen_passbook_title %}
-{{ 'oxygen_passbook.event_product.section_name'|trans({ '%event%': event.getName() }) }} > {{ 'oxygen_passbook.event_product.create'|trans }}
+{{ 'oxygen_passbook.booking.edit.section_name'|trans({ '%event%': event.getName() }) }}
 {% endblock oxygen_passbook_title %}
 
 {% block oxygen_passbook_content %}
@@ -12,7 +14,7 @@
 	{{ form_widget(form) }}
 	{{ form_rest(form) }}
 	<p>
-		<input formnovalidate type="submit" value="{{ 'oxygen_passbook.event_product.save'|trans }}" class="btn btn-primary" />
+		<input formnovalidate type="submit" value="{{ 'oxygen_passbook.event.save'|trans }}" class="btn btn-primary" />
 	</p>
 	</form>
 </div>

@@ -1,3 +1,4 @@
+{# ------------- GENERIC ----------- #}
 {% block form_row %}
 {% spaceless %}
     <div>
@@ -32,20 +33,28 @@
 {% endspaceless %}
 {% endblock form_label %}
 
+{% block errors_list %}{% spaceless %}
+	<ul class="form-errors-list">
+        {% for error in errors %}
+            <li>{{
+                error.messagePluralization is null
+                    ? error.messageTemplate|trans(error.messageParameters, 'validators')
+                    : error.messageTemplate|transchoice(error.messagePluralization, error.messageParameters, 'validators')
+            }}</li>
+        {% endfor %}
+    </ul>
+{% endspaceless %}{% endblock %}
+
 {% block form_errors %}
 {% spaceless %}
     {% if errors|length > 0 %}
-    <div>
-	    <ul class="form-error label label-important">
-	        {% for error in errors %}
-	            <li>{{
-	                error.messagePluralization is null
-	                    ? error.messageTemplate|trans(error.messageParameters, 'validators')
-	                    : error.messageTemplate|transchoice(error.messagePluralization, error.messageParameters, 'validators')
-	            }}</li>
-	        {% endfor %}
-	    </ul>
-	</div>
+	    {% if form.vars.attr is defined and form.vars.attr.error is defined and form.vars.attr.error == 'small' %}
+	    <span class="form-error badge badge-important" data-trigger="hover" data-placement="top" data-toggle="popover" data-html="true" data-content="{{ block('errors_list')|e }}">
+	    	<i class="icon-warning-sign icon-white"></i>
+	    </span>
+	    {% else %}
+	    <div><div class="form-error label label-important">{{ block('errors_list') }}</div></div>
+		{% endif %}
     {% endif %}
 {% endspaceless %}
 {% endblock form_errors %}
@@ -114,3 +123,157 @@
     {{ block('form_widget') }}
 {% endspaceless %}
 {% endblock collection_widget %}
+
+{# ------------------- #}
+{# ------- BOOKING ------------- #}
+{# -------------------- #}
+{% block oxygen_passbook_booking_type_widget_ticket %}
+{{ form_row(form.eventTicket) }}
+{% endblock %}
+
+{% block oxygen_passbook_booking_type_widget %}
+<div class="row-fluid">
+	<div class="span12">
+		{{ block('oxygen_passbook_booking_type_widget_ticket') }}
+		<h3>{{ 'form_book_admin.user_data'|trans }}</h3>
+		<div>
+			{{ form_errors(form.person) }}
+			{{ form_widget(form.person) }}
+		</div>
+		<h3>{{ ('event_type.'~form.vars['event'].getType()~'.form_book_admin.choose_title')|trans }}</h3>
+		<p>
+			{{ ('event_type.'~form.vars['event'].getType()~'.form_book_admin.choose_helper')|trans }}
+		</p>
+		<div>
+			<table class="table table-condensed" style="width: auto;">
+				<tbody>
+				{{ form_rest(form) }}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block oxygen_passbook_booking_slot_type_row %}
+<tr>
+	<td>{% spaceless %}
+		{% if form.vars['product'].getUrl() is not null %}
+			<a href="{{ form.vars['product'].getUrl() }}" target="_blank">{{ form_label(form, null, { plaintext: true }) }}</a>
+		{% else %}
+			{{ form_label(form, null, { plaintext: true }) }}
+		{% endif %}
+	{% endspaceless %}</td>
+	<td>{{ form_widget(form) }}{{ form_errors(form) }}</td>
+</tr>
+{% endblock %}
+
+{% block oxygen_passbook_choice_slot_type_row %}
+{{ form_errors(form) }}
+{{ form_widget(form, { attr: { class: 'inline' }}) }}
+{% endblock %}
+
+{# ------------------- #}
+{# ------- EVENT ------------- #}
+{# -------------------- #}
+{# ------ Forms type ------- #}
+
+{% block oxygen_passbook_event_type_widget %}
+{% spaceless %}
+	<div class="row-fluid">
+		<div class="span6">
+			<h3>{{ 'event.informations'|trans({}, 'oxygen_passbook_form') }}</h3>
+			{{ form_row(form.name) }}
+			{{ form_row(form.type) }}
+			{{ form_row(form.dateStart) }}
+			{{ form_row(form.dateEnd) }}
+		</div>
+		<div class="span6">
+			<h3>{{ form_label(form.tickets, null, { plaintext: true }) }}</h3>
+			{{ form_errors(form.tickets) }}
+			<div class="alert alert-info">{% autoescape false %}{{ 'event.helper_tickets'|trans({}, 'oxygen_passbook_form') }}{% endautoescape %}</div>
+			{{ form_widget(form.tickets) }}
+		</div>
+	</div>
+{% endspaceless %}
+{% endblock oxygen_passbook_event_type_widget %}
+
+{% block oxygen_passbook_event_product_type_widget %}
+{% spaceless %}
+	<div class="row-fluid">
+		<div class="span6">
+			<h3>{{ 'event.informations'|trans({}, 'oxygen_passbook_form') }}</h3>
+			{{ form_row(form.name) }}
+			{{ form_row(form.description) }}
+			{{ form_row(form.url) }}
+		</div>
+		<div class="span6">
+			<h3>{{ form_label(form.slots, null, { plaintext: true }) }}</h3>
+			<div class="alert alert-info">{% autoescape false %}{{ 'event_product.helper_slots'|trans({}, 'oxygen_passbook_form') }}{% endautoescape %}</div>
+			{{ form_errors(form.slots) }}
+			{{ form_widget(form.slots) }}
+		</div>
+	</div>
+{% endspaceless %}
+{% endblock oxygen_passbook_event_product_type_widget %}
+
+{# ------ Tickets collection ------- #}
+
+{% block _oxygen_passbook_event_type_tickets_widget %}
+{% spaceless %}
+<div class="form-collection accordion" id="event-tickets" data-prototype="{{ form_row(prototype)|e }}">
+{% for i, ticket in form %}
+{{ form_row(ticket) }}
+{% endfor %}
+</div>
+<a href="#" class="btn" data-target="event-tickets">{{ 'event.add_ticket'|trans({}, 'oxygen_passbook_form') }}</a>
+{% endspaceless %}
+{% endblock _oxygen_passbook_event_type_tickets_widget %}
+
+{% block oxygen_passbook_event_ticket_type_row %}
+{% set uniqid = oxygen_uniqid() %}
+<div class="accordion-group form-collections-row" data-uniqid="{{ uniqid }}">
+ 	<div class="accordion-heading">
+		<a class="accordion-toggle" data-toggle="collapse" data-parent="#event-tickets" href="#{{ uniqid }}">
+		{{ 'event.ticket_number'|trans({}, 'oxygen_passbook_form') }}
+		</a>
+	</div>
+	<div id="{{ uniqid }}" class="accordion-body collapse">
+		<div class="accordion-inner">
+		{{ form_errors(form) }}
+		{{ form_widget(form) }}
+		<a class="btn form-collections-row-remove" title="{{ 'event_ticket.remove_slot'|trans({}, 'oxygen_passbook_form')|e }}">{{ 'event_ticket.remove_slot'|trans({}, 'oxygen_passbook_form')|e }}</a>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{# ------ Slots collection ------- #}
+
+{% block _oxygen_passbook_event_product_type_slots_widget %}
+<table class="table form-collections" id="event_product-slots" data-prototype="{{ form_row(prototype)|e }}">
+	<thead>
+		<tr>
+			<th></th>
+			<th>{{ form_label(form.vars.prototype.dateStart, null, { plaintext: true }) }}</th>
+			<th>{{ form_label(form.vars.prototype.dateEnd, null, { plaintext: true }) }}</th>
+			<th style="width: 90px;">{{ form_label(form.vars.prototype.seatMax, null, { plaintext: true }) }}</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for i, slot in form %}
+		{{ form_row(slot) }}
+		{% endfor %}
+	</tbody>
+</table>
+<a href="#" class="btn" data-target="event_product-slots">{{ 'event_product.add_slot'|trans({}, 'oxygen_passbook_form') }}</a>
+{% endblock %}
+
+{% block oxygen_passbook_event_product_slot_type_row %}
+<tr class="form-collections-row">
+	<td><i class="icon-remove form-collections-row-remove" title="{{ 'event_product.remove_slot'|trans({}, 'oxygen_passbook_form')|e }}"></i></td>
+	<td>{{ form_widget(form.dateStart, { attr: { class: 'row-fluid' }}) }}{{ form_errors(form.dateStart) }}</td>
+	<td>{{ form_widget(form.dateEnd, { attr: { class: 'row-fluid' }}) }}{{ form_errors(form.dateEnd) }}</td>
+	<td>{{ form_widget(form.seatMax, { attr: { style: 'width: 40px;' }}) }}{{ form_errors(form.seatMax) }}</td>
+</tr>
+{% endblock %}

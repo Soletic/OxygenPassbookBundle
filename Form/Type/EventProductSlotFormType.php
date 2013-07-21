@@ -1,6 +1,8 @@
 <?php
 namespace Oxygen\PassbookBundle\Form\Type;
 
+use Oxygen\FrameworkBundle\Locale\Locale;
+
 use Symfony\Component\Intl\DateFormatter\IntlDateFormatter;
 
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -23,18 +25,18 @@ class EventProductSlotFormType extends EntityEmbeddedFormType {
 		$builder->add('dateStart', 'datetime', array(
 				'required' => true, 'translation_domain' => 'oxygen_passbook_form',
 				'widget' => 'single_text', 'with_seconds' => false,
-				'attr' => array('placeholder' => \IntlDateFormatter::create('fr', \IntlDateFormatter::SHORT, \IntlDateFormatter::SHORT)->getPattern()),
-				'format' => \IntlDateFormatter::create('fr', \IntlDateFormatter::SHORT, \IntlDateFormatter::SHORT)->getPattern(),
+				'attr' => array('error' => 'small', 'placeholder' => \IntlDateFormatter::create('fr', \IntlDateFormatter::SHORT, \IntlDateFormatter::SHORT)->getPattern()),
+				'format' => \IntlDateFormatter::create(Locale::getDefault(), \IntlDateFormatter::SHORT, \IntlDateFormatter::SHORT)->getPattern(),
 				'invalid_message' => 'La date est invalide',
 			));
 		$builder->add('dateEnd', 'datetime', array(
 				'required' => true, 'translation_domain' => 'oxygen_passbook_form',
 				'widget' => 'single_text', 'with_seconds' => false, 
-				'attr' => array('placeholder' => \IntlDateFormatter::create('fr', \IntlDateFormatter::SHORT, \IntlDateFormatter::SHORT)->getPattern()),
-				'format' => \IntlDateFormatter::create('fr', \IntlDateFormatter::SHORT, \IntlDateFormatter::SHORT)->getPattern(),
+				'attr' => array('error' => 'small', 'placeholder' => \IntlDateFormatter::create('fr', \IntlDateFormatter::SHORT, \IntlDateFormatter::SHORT)->getPattern()),
+				'format' => \IntlDateFormatter::create(Locale::getDefault(), \IntlDateFormatter::SHORT, \IntlDateFormatter::SHORT)->getPattern(),
 				'invalid_message' => 'La date est invalide',
 			));
-		$builder->add('seatMax', 'integer', array('required' => true, 'translation_domain' => 'oxygen_passbook_form'));
+		$builder->add('seatMax', 'integer', array('required' => true, 'translation_domain' => 'oxygen_passbook_form', 'attr' => array('error' => 'small')));
 	}
 	
 	public function setDefaultOptions(OptionsResolverInterface $resolver) {

@@ -1,0 +1,5 @@
+# Events
+oxygen_passbook_printing_event_list:
+    pattern:  /events/printing
+    defaults: { _controller: 'OxygenPassbookBundle:Print:listEvents' }
+    

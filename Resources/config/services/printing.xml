@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    
+    <parameters>
+    	<parameter key="oxygen_passbook.booking.class">Oxygen\PassbookBundle\Booking\EventBooking</parameter>
+    	
+    	<!-- grid -->
+        <parameter key="oxygen_passbook.event_printing.grid.configuration_class">Oxygen\PassbookBundle\Entity\Grid\EventPrintingGridConfiguration</parameter>
+        
+    </parameters>
+
+    <services>
+    	<!-- Grid -->
+        <service id="oxygen_passbook.grid_configuration.event_printing" class="%oxygen_passbook.event_printing.grid.configuration_class%">
+        	<tag name="oxygen.grid" gridId="oxygen_passbook_event_printing" 
+        		sourceType="entity" sourceReference="oxygen_passbook.event" hide="type" />
+        	<tag name="oxygen.grid_column" id="bookings" sortable="false" filterable="false" />
+        </service>
+        
+    </services>
+    
+</container>

@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    
+    <services>
+    	
+    	<service id="oxygen_passbook.model.validator.min_seat" class="Oxygen\PassbookBundle\Validator\MinSeatValidator">
+		    <argument type="service" id="oxygen_framework.entities" />
+		    <tag name="validator.constraint_validator" alias="oxygen_passbook.validator.min_seat" />
+		</service>
+        
+    </services>
+    
+</container>
