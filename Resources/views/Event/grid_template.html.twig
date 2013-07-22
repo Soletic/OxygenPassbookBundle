@@ -6,9 +6,23 @@
 <a href="{{ path('oxygen_passbook_event_product_edit', {'eventId': row.getField('id') }) }}" class="btn btn-small"><i class="icon-plus-sign"></i>&nbsp;Ajouter</a>
 {% endblock %}
 
+{% block grid_column_opened_cell %}
+{% if value=='true' %}
+<a href="{{ path('oxygen_passbook_event_unpublish', { eventId: row.getField('id') }) }}" class="btn btn-danger">{{ 'oxygen_passbook_event.unpublish'|trans }}</a>
+{% else %}
+<a href="{{ path('oxygen_passbook_event_publish', { eventId: row.getField('id') }) }}" class="btn btn-success">{{ 'oxygen_passbook_event.publish'|trans }}</a>
+{% endif %}
+{% endblock %}
+
 {% block grid_column_description_cell %}
 {{ value|nl2br }}
 {% endblock %}
+
+{% block grid_column_bookingsTotal_cell %}
+<span class="badge badge-success">{{ 'oxygen_passbook_event_product.bookings'|trans({ '%total%': value }) }}</span>
+&nbsp;<a class="btn" href="{{ path('oxygen_passbook_animation_bookings_printing', { key: key_securisation, id: row.getField('id') }) }}">{{ 'oxygen_passbook_event_product.print_bookings'|trans }}</a>
+{% endblock %}
+
 
 {% block grid_column_type_cell %}
 {{ ('event_type.'~value~'.name')|trans }}

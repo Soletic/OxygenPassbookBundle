@@ -31,7 +31,7 @@
     	<!-- Grid -->
         <service id="oxygen_passbook.grid_configuration.event_booking" class="%oxygen_passbook.event_booking.grid.configuration_class%">
         	<tag name="oxygen.grid" gridId="oxygen_passbook_event_booking" 
-        		sourceType="entity" sourceReference="oxygen_passbook.event" hide="type" />
+        		sourceType="entity" sourceReference="oxygen_passbook.event" hide="type,opened" />
         	<tag name="oxygen.grid_column" id="bookings" sortable="false" filterable="false" />
         </service>
         <service id="oxygen_passbook.grid_configuration.booking_person" class="%oxygen_passbook.booking_person.grid.configuration_class%">
@@ -73,7 +73,7 @@
         </service>
         
         <!-- data control -->
-        <service id="oxygen_passbook.bookings" class="Oxygen\PassbookBundle\Booking\EventListener\EventsEventListener">
+        <service id="oxygen_passbook.bookings_listener" class="Oxygen\PassbookBundle\Booking\EventListener\EventsEventListener">
         	<argument type="service" id="oxygen_framework.entities" />
         	<tag name="kernel.event_subscriber" />
         </service>

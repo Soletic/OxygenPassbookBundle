@@ -30,10 +30,20 @@ class BookingSlotRepository extends EntityRepository
 	 * 
 	 * @param integer $eventProductId
 	 */
-	public function findByEventProduct($eventProductId) {
-		return $this->createQueryBuilder('booking_slot')->innerJoin('booking_slot.eventProductSlot', 'slot')
+	public function findByEventProduct($eventProductId, \DateTime $dateMin = null, \DateTime $dateMax = null) {
+		$query = $this->createQueryBuilder('booking_slot')->innerJoin('booking_slot.eventProductSlot', 'slot')
 			->innerJoin('slot.eventProduct', 'event_product')->where('event_product.id=:id')
-			->setParameter('id', $eventProductId)->getQuery()->getResult();
+			->orderBy('slot.dateStart')
+			->setParameter('id', $eventProductId);
+		
+		if (!is_null($dateMin)) {
+			$query->andWhere('slot.dateStart>=:min')->setParameter('min', $dateMin);
+		}
+		if (!is_null($dateMax)) {
+			$query->andWhere('slot.dateStart<=:max')->setParameter('max', $dateMax);
+		}
+		
+		return $query->getQuery()->getResult();
 	}
 	/**
 	 * Return bookings slot for an event

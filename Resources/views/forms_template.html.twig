@@ -134,16 +134,23 @@
 {% block oxygen_passbook_booking_type_widget %}
 <div class="row-fluid">
 	<div class="span12">
+		{% if not form.vars['hide_ticket'] %}
 		{{ block('oxygen_passbook_booking_type_widget_ticket') }}
-		<h3>{{ 'form_book_admin.user_data'|trans }}</h3>
+		{% endif %}
+		<h3>{{ form_label(form.person, null, { plaintext: true }) }}</h3>
 		<div>
 			{{ form_errors(form.person) }}
 			{{ form_widget(form.person) }}
 		</div>
-		<h3>{{ ('event_type.'~form.vars['event'].getType()~'.form_book_admin.choose_title')|trans }}</h3>
+		<h3>{{ form_label(form, null, { plaintext: true }) }}</h3>
 		<p>
-			{{ ('event_type.'~form.vars['event'].getType()~'.form_book_admin.choose_helper')|trans }}
+			{{ (form.vars['event'].getType()~'.form.booking.slots_introduction')|trans({}, 'oxygen_passbook_form') }}
 		</p>
+		{% if form.vars['max_animations'] > 0 %}
+		<p>
+			{{ (form.vars['event'].getType()~'.form.booking.slots_limitation')|trans({'%max%': form.vars['max_animations']}, 'oxygen_passbook_form') }}
+		</p>
+		{% endif %}
 		<div>
 			<table class="table table-condensed" style="width: auto;">
 				<tbody>

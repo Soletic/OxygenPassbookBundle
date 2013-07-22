@@ -118,4 +118,17 @@ class EventController extends OxygenController
 		return $this->render('OxygenPassbookBundle:Event:edit_product.html.twig', array('form' => $form->createView(), 'event' => $form->getEvent()));
 	}
 
+	public function publishEventAction($eventId, $state) {
+		$event = $this->get('oxygen_framework.entities')->getManager('oxygen_passbook.event')->getRepository()->find($eventId);
+		if (is_null($event)) {
+			throw $this->createNotFoundException($this->get('translator')->trans('oxygen_passbook.event.notfound', array('%id%' => $id)));
+		}
+		
+		$event->setOpened($state);
+		$this->getDoctrine()->getEntityManager()->flush();
+		$this->get('oxygen_framework.templating.messages')->addSuccess($this->translate('oxygen_passbook.event.'.(($state)?'published':'unpublished'), array('%name%' => $event->getName())));
+		
+		return $this->redirect($this->generateUrl('oxygen_passbook_event_list'));
+	}
+	
 }

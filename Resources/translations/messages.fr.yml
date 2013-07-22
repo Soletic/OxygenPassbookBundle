@@ -7,6 +7,9 @@ oxygen_passbook_event:
     Actions: ''
     products: Animations
     type: Nature des animations
+    publish: Ouvrir réservations
+    unpublish: Fermer réservations
+    opened: Etat
     
 oxygen_passbook_event_product:
     url: Lien de la fiche
@@ -14,6 +17,9 @@ oxygen_passbook_event_product:
     description: Informations
     name: Animation
     Actions: ''
+    bookingsTotal: Réservations
+    bookings: %total%
+    print_bookings: Imprimer
     
 oxygen_passbook_event_booking:
     dateStart: Début le
@@ -40,9 +46,17 @@ oxygen_passbook_booking_person:
 
 No result: Aucun résultat
 
+print:
+    bookings:
+        title: Réservations pour %name%
+        title_filter_min: à partir du %min%
+        title_filter_max: jusqu'au %max%
+        title_filter: du %min% au %max%
+        slot: Date
+        person_name: Nom
+        person_email: Email
+
 # Form to book a person
-form_book_admin:
-    user_data: Informations sur la personne
 form_book:
     slot:
         full: %label% - Complet
@@ -55,10 +69,6 @@ event_type:
     care:
         name: soin
         Name: Soins
-        form_book_admin:
-            choose_title: Choisir les soins
-            choose_helper: |
-                Parmi les soins proposés ci-dessous, sélectionner un créneau horaire.
     conference:
         name: conférence
         Name: Conférences
@@ -78,6 +88,8 @@ oxygen_passbook:
         create: Créer un évènement
         save: Enregistrer
         notfound: L'évènement %id% n'existe pas
+        published: Evènement "%name%" publié. Les personnes peuvent commencer à réserver.
+        unpublished: Evènement "%name%" dépublié.
         form:
             dateStart: Début le
             dateEnd: Fin le

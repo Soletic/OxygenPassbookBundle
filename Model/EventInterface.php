@@ -93,4 +93,15 @@ interface EventInterface {
 	 */
 	public function removeTicket(EventTicketInterface $ticket);
 
+	/**
+	* @param bool $opened
+	* @return EventInterface
+	*/
+	public function setOpened($opened);
+	 
+	/**
+	* @return bool
+	*/
+	public function isOpened();
+	
 }

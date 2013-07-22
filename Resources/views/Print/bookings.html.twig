@@ -1,0 +1,49 @@
+{% extends oxygen_layout() %}
+
+{% block oxygen_passbook_title %}
+{{ 'print.bookings.title'|trans({'%name%': eventProduct.getName()}) }}
+{% if filter.dateMin is not null and filter.dateMax is null %}
+{{ 'print.bookings.title_filter_min'|trans({'%min%': filter.dateMin|date(date_pattern) }) }}
+{% elseif filter.dateMin is null and filter.dateMax is not null %}
+{{ 'print.bookings.title_filter_max'|trans({'%max%': filter.dateMax|date(date_pattern) }) }}
+{% elseif filter.dateMin is not null and filter.dateMax is not null %}
+{{ 'print.bookings.title_filter'|trans({'%min%': filter.dateMin|date(date_pattern), '%max%': filter.dateMax|date(date_pattern) }) }}
+{% endif %}
+{% endblock %}
+
+{% block oxygen_passbook_content %}
+<div id="form-filter">
+	<form method="post" {{ form_enctype(form) }}>
+	{{ form_errors(form) }}
+	{{ form_widget(form) }}
+	{{ form_rest(form) }}
+	<p>
+		<input formnovalidate type="submit" value="{{ 'form.filter_bookings.filter'|trans({}, 'oxygen_passbook_form') }}" class="btn btn-primary" />
+	</p>
+	</form>
+</div>
+<table class="table">
+	<thead>
+		<tr>
+			<th style="width: 30%">{{ 'print.bookings.slot'|trans }}</th>
+			<th style="width: 35%">{{ 'print.bookings.person_name'|trans }}</th>
+			<th style="width: 35%">{{ 'print.bookings.person_email'|trans }}</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for slot in eventProduct.getSlots() if (filter.dateMin is null or slot.getDateStart().format('Y-m-d H:i') >= filter.dateMin.format('Y-m-d H:i')) and (filter.dateMax is null or slot.getDateStart().format('Y-m-d H:i') <= filter.dateMax.format('Y-m-d H:i')) %}
+			{% set name = '' %}
+			{% set email = '' %}
+			{% for booking in bookings if booking.getEventProductSlot().getId() == slot.getId() %}
+				{% set name = booking.getBookingPerson().getName() %}
+				{% set email = booking.getBookingPerson().getEmail() %}
+			{% endfor %}
+			<tr>
+				<td>{{ slot.__toString() }}</td>
+				<td>{{ name }}</td>
+				<td>{{ email }}</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock %}

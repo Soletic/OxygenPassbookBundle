@@ -40,11 +40,12 @@
         	<tag name="oxygen.grid" gridId="oxygen_passbook_event" 
         		sourceType="entity" sourceReference="oxygen_passbook.event"
         		groupBy="id" />
-        	<tag name="oxygen.grid_column" id="products" field="products.id:count" type="number" method="source" sortable="false" />
+        	<tag name="oxygen.grid_column" id="products" field="products.id:count" type="number" size="150" method="source" sortable="false" />
         	<tag name="oxygen.grid_action" route="oxygen_passbook_event_edit" type="edit" />
         	<tag name="oxygen.grid_action" route="oxygen_passbook_event_delete" type="delete" />
         </service>
         <service id="oxygen_passbook.grid_configuration.event_product" class="%oxygen_passbook.event_product.grid.configuration_class%">
+        	<tag name="oxygen.grid_column" id="bookingsTotal" type="number" sortable="false" filterable="false" />
         	<tag name="oxygen.grid" gridId="oxygen_passbook_event_product" sourceType="entity" sourceReference="oxygen_passbook.event_product" />
         	<tag name="oxygen.grid_action" route="oxygen_passbook_event_product_direct_edit" type="edit" />
         	<tag name="oxygen.grid_action" route="oxygen_passbook_event_product_copy" type="copy" />

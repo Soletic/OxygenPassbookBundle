@@ -12,7 +12,16 @@ oxygen_passbook_event_delete:
     defaults: { _controller: 'OxygenPassbookBundle:Event:deleteEvent', id: null }
     requirements:
         id: \d+
-    
+oxygen_passbook_event_publish:
+    pattern:  /events/publish/{eventId}
+    defaults: { _controller: 'OxygenPassbookBundle:Event:publishEvent', state: true }
+    requirements:
+        eventId: \d+
+oxygen_passbook_event_unpublish:
+    pattern:  /events/unpublish/{eventId}
+    defaults: { _controller: 'OxygenPassbookBundle:Event:publishEvent', state: false }
+    requirements:
+        eventId: \d+
 # Event product
 oxygen_passbook_event_product_list:
     pattern:  /products/{eventId}

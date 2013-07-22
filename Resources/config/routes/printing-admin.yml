@@ -1,5 +1,8 @@
 # Events
-oxygen_passbook_printing_event_list:
-    pattern:  /events/printing
-    defaults: { _controller: 'OxygenPassbookBundle:Print:listEvents' }
+oxygen_passbook_animation_bookings_printing:
+    pattern:  /print-bookings/{key}/{id}
+    defaults: { _controller: 'OxygenPassbookBundle:Print:bookingsAnimation' }
+    requirements:
+        key: .+
+        id: \d+
     

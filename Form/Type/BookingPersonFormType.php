@@ -21,13 +21,19 @@ class BookingPersonFormType extends EntityEmbeddedFormType {
 		parent::buildForm($builder, $options);
 		
 		$builder->add('name', 'text', array('required' => true, 'translation_domain' => 'oxygen_passbook_form'));
-		$builder->add('email', 'email', array('required' => true, 'translation_domain' => 'oxygen_passbook_form'));
+		if ($options['email_disabled']) {
+			$builder->add('email', 'hidden', array('required' => true, 'translation_domain' => 'oxygen_passbook_form'));
+		} else {
+			$builder->add('email', 'email', array('required' => true, 'translation_domain' => 'oxygen_passbook_form'));
+		}
+		
 	}
 	
 	public function setDefaultOptions(OptionsResolverInterface $resolver) {
 		parent::setDefaultOptions($resolver);
 		$resolver->setDefaults(array(
-				'translation_domain' => 'oxygen_passbook_form'
+				'translation_domain' => 'oxygen_passbook_form',
+				'email_disabled' => false,
 		));
 	}
 	

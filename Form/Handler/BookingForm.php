@@ -75,7 +75,16 @@ class BookingForm extends Form {
 			}
 		}
 		
+		// If event ticket already set
+		if (!empty($params['eventTicket'])) {
+			$this->options['hide_event_ticket'] = true;
+			$this->options['max_animations'] = $params['eventTicket']->getLimitAnimations();
+			$this->getData()->setEventTicket($params['eventTicket']);
+		}
+		
 		// options of form
+		$this->options['label'] = $this->event->getType().'.form.booking.slots_title';
+		$this->options['person_options'] = array();
 		$this->options['event'] = $this->event;
 		$this->options['products'] = $this->container->get('oxygen_framework.entities')->getManager('oxygen_passbook.event_product')->getRepository()->findBy(array('event' => $eventId));
 		
@@ -103,7 +112,7 @@ class BookingForm extends Form {
 			$bookingPerson =  $this->container->get('oxygen_framework.entities')->getManager('oxygen_passbook.booking_person')->getRepository()->findOneBy(array('email' => $this->getData()->getPerson()->getEmail()));
 			if (!is_null($bookingPerson)) {
 				foreach($bookingPerson->getBookingSlots() as $bookingSlot) {
-					if ($bookingSlot->getEventProductSlot()->getEventProduct()->getEvent()->getId() == $this->options['event']->getId()) {
+					if ($bookingSlot->getEventTicket()->getId() == $this->getData()->getEventTicket()->getId()) {
 						$this->form->addError(new FormError('booking.errors.booking_exist', null, array(
 								'%mail%' => $this->getData()->getPerson()->getEmail(),
 								'%name%' => $this->options['event']->getName()
@@ -155,7 +164,7 @@ class BookingForm extends Form {
 		
 		$removed = $this->getRemovedElement($this->orignalSlots, $slotsSelected);
 		foreach($removed as $bookingSlotRemoved) {
-			$bookingPerson->removeBookingSlot($bookingSlot);
+			$bookingPerson->removeBookingSlot($bookingSlotRemoved);
 			$this->container->get('doctrine.orm.entity_manager')->remove($bookingSlotRemoved);
 		}
 		
@@ -173,7 +182,7 @@ class BookingForm extends Form {
 		return true;
 	}
 	
-	public function onSuccess() {
+	public function onSuccess() {		
 		$this->container->get('doctrine.orm.entity_manager')->flush();
 		$this->container->get('oxygen_framework.templating.messages')->addSuccess(
 				$this->container->get('translator')->trans('oxygen_passbook.booking.saved', array('%name%' => $this->options['event']->getName()))
