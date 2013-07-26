@@ -55,10 +55,10 @@ Oxygen\PassbookBundle\Model\EventProductSlotModel:
           type: integer
           message: La valeur {{ value }} n'est pas un nombre valide.
           groups: ['default']
-      #- GreaterThan:
-      #    value: 0
-      #    message: La limite doit au moins être de 1
-      #    groups: ['default']
+      - GreaterThan:
+          value: 0
+          message: La limite doit au moins être de 1
+          groups: ['default']
 
 Oxygen\PassbookBundle\Model\BookingPersonModel:
     properties:
