@@ -86,7 +86,7 @@ class BookingForm extends Form {
 		$this->options['label'] = $this->event->getType().'.form.booking.slots_title';
 		$this->options['person_options'] = array();
 		$this->options['event'] = $this->event;
-		$this->options['products'] = $this->container->get('oxygen_framework.entities')->getManager('oxygen_passbook.event_product')->getRepository()->findBy(array('event' => $eventId));
+		$this->options['products'] = $this->container->get('oxygen_framework.entities')->getManager('oxygen_passbook.event_product')->getRepository()->findAllsForBooking($eventId);
 		
 		foreach($this->options['products'] as $index => $product) {
 			$found = null;

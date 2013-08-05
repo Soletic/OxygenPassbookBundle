@@ -210,9 +210,11 @@
 	<div class="row-fluid">
 		<div class="span6">
 			<h3>{{ 'event.informations'|trans({}, 'oxygen_passbook_form') }}</h3>
+			{% block oxygen_passbook_event_product_type_widget_informations %}
 			{{ form_row(form.name) }}
 			{{ form_row(form.description) }}
 			{{ form_row(form.url) }}
+			{% endblock oxygen_passbook_event_product_type_widget_informations %}
 		</div>
 		<div class="span6">
 			<h3>{{ form_label(form.slots, null, { plaintext: true }) }}</h3>

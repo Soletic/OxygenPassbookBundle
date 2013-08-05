@@ -10,4 +10,10 @@ use Doctrine\ORM\EntityRepository;
  */
 class EventProductRepository extends EntityRepository
 {
+	
+	public function findAllsForBooking($eventId) {
+		return $this->createQueryBuilder('product')->innerJoin('product.event', 'event')->where('event.id=:eventId')
+			->setParameter('eventId', $eventId)->orderBy('product.name', 'ASC')->getQuery()->getResult();
+	}
+	
 }

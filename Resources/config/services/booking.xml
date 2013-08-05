@@ -36,7 +36,7 @@
         </service>
         <service id="oxygen_passbook.grid_configuration.booking_person" class="%oxygen_passbook.booking_person.grid.configuration_class%">
         	<tag name="oxygen.grid" gridId="oxygen_passbook_booking_person" 
-        		sourceType="entity" sourceReference="oxygen_passbook.booking_person" groupBy="id" />
+        		sourceType="entity" sourceReference="oxygen_passbook.booking_person" groupBy="id" orderBy="name,ASC" />
         	<tag name="oxygen.grid_action" route="oxygen_passbook_booking_edit" type="edit" parameters="eventId" />
         	<tag name="oxygen.grid_action" route="oxygen_passbook_booking_delete" type="delete" parameters="eventId" />
         </service>
