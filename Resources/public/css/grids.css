@@ -1,0 +1,3 @@
+.grid-column-bookingsTotal, .grid-column-products, .grid-column-bookings.last-column {
+	white-space:nowrap;
+}

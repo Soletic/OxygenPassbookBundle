@@ -2,7 +2,13 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+        	{% stylesheets
+				'@OxygenPassbookBundle/Resources/public/css/grids.css'
+			%}
+			<link rel="stylesheet" href="{{ asset_url }}" />
+			{% endstylesheets %}
+        {% endblock %}
         {% block jsheader %}{% endblock %}
     </head>
     <body>

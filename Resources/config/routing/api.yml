@@ -1,0 +1,6 @@
+# Event
+oxygen_passbook_api_get_availability:
+    pattern:  /availability
+    defaults: { _controller: 'OxygenPassbookBundle:Api:availability' }
+    requirements:
+        _method:  GET
