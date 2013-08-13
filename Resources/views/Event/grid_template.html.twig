@@ -1,5 +1,13 @@
 {% extends 'OxygenDatagridBundle::blocks.html.twig' %}
 
+{% block grid_column_name_cell %}
+{% if row.getField('url') is not null and row.getField('url')|length > 0 %}
+<a href="{{ row.getField('url') }}">{{ value }}</a>
+{% else %}
+{{ value }}
+{% endif %}
+{% endblock %}
+
 {% block grid_column_products_cell %}
 <a href="{{ path('oxygen_passbook_event_product_list', {'eventId': row.getField('id') }) }}"><span class="badge badge-success">{{ value }}</span></a>
 &nbsp;
