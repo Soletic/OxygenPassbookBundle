@@ -37,7 +37,7 @@ class ApiController extends OxygenController
 			->addOrderBy('slot.dateStart', 'ASC');
 		
 		if (!is_null($animationsId)) {
-			$slots->where($slots->expr()->in('event_product.id', explode($animationsId)));
+			$slots->where($slots->expr()->in('event_product.id', explode(',', $animationsId)));
 		} else {
 			$slots->where('event_product.url=:url')->setParameter('url', $urlCard);
 		}
