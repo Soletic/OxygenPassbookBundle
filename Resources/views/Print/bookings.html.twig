@@ -32,8 +32,8 @@
 	</thead>
 	<tbody>
 		{% for slot in eventProduct.getSlots() if (filter.dateMin is null or slot.getDateStart().format('Y-m-d H:i') >= filter.dateMin.format('Y-m-d H:i')) and (filter.dateMax is null or slot.getDateStart().format('Y-m-d H:i') <= filter.dateMax.format('Y-m-d H:i')) %}
-			{% set name = '' %}
-			{% set email = '' %}
+			{% set name = null %}
+			{% set email = null %}
 			{% for booking in bookings if booking.getEventProductSlot().getId() == slot.getId() %}
 				{% set name = booking.getBookingPerson().getName() %}
 				{% set email = booking.getBookingPerson().getEmail() %}
@@ -43,6 +43,13 @@
 					<td>{{ email }}</td>
 				</tr>
 			{% endfor %}
+			{% if email is null %}
+				<tr>
+					<td>{{ slot.__toString() }}</td>
+					<td></td>
+					<td></td>
+				</tr>
+			{% endif %}
 		{% endfor %}
 	</tbody>
 </table>
