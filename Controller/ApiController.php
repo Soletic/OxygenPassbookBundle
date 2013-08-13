@@ -24,7 +24,8 @@ class ApiController extends OxygenController
 	public function availabilityAction()
 	{
 		$urlCard = $this->getRequest()->get('url', null);
-		if (is_null($urlCard)) {
+		$animationsId = $this->getRequest()->get('animationsId', null);
+		if (is_null($urlCard) && is_null($animationsId)) {
 			return JsonResponse::create(null);
 		}
 		
@@ -32,9 +33,16 @@ class ApiController extends OxygenController
 		$slots = $this->getEntitiesServer()->getManager('oxygen_passbook.event_product_slot')->getRepository()
 			->createQueryBuilder('slot')->innerJoin('slot.eventProduct', 'event_product')
 			->select('event_product.name as name, slot.id as slotId, slot.dateStart as dateStart, slot.dateEnd as dateEnd, slot.seatMax as seatMax')
-			->where('event_product.url=:url')->setParameter('url', $urlCard)
 			->orderBy('event_product.id', 'ASC')
-			->addOrderBy('slot.dateStart', 'ASC')->getQuery()->getResult(AbstractQuery::HYDRATE_ARRAY);
+			->addOrderBy('slot.dateStart', 'ASC');
+		
+		if (!is_null($animationsId)) {
+			$slots->where($slots->expr()->in('event_product.id', explode($animationsId)));
+		} else {
+			$slots->where('event_product.url=:url')->setParameter('url', $urlCard);
+		}
+		
+		$slots = $slots->getQuery()->getResult(AbstractQuery::HYDRATE_ARRAY);
 		
 		$availability = array();
 		
