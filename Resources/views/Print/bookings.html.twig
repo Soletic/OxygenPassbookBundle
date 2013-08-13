@@ -37,12 +37,12 @@
 			{% for booking in bookings if booking.getEventProductSlot().getId() == slot.getId() %}
 				{% set name = booking.getBookingPerson().getName() %}
 				{% set email = booking.getBookingPerson().getEmail() %}
+				<tr>
+					<td>{{ slot.__toString() }}</td>
+					<td>{{ name }}</td>
+					<td>{{ email }}</td>
+				</tr>
 			{% endfor %}
-			<tr>
-				<td>{{ slot.__toString() }}</td>
-				<td>{{ name }}</td>
-				<td>{{ email }}</td>
-			</tr>
 		{% endfor %}
 	</tbody>
 </table>
