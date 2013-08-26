@@ -90,6 +90,7 @@ class EventController extends OxygenController
 			$newEventProduct->setName($eventProduct->getName() . ' Copie');
 			$newEventProduct->setDescription($eventProduct->getDescription());
 			$newEventProduct->setUrl($eventProduct->getUrl());
+			$newEventProduct->setLocation($eventProduct->getLocation());
 			foreach($eventProduct->getSlots() as $slot) {
 				$newSlot = $this->container->get('oxygen_framework.entities')->getManager('oxygen_passbook.event_product_slot')->createInstance();
 				$newSlot->setDateStart($slot->getDateStart());
