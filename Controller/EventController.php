@@ -29,10 +29,20 @@ class EventController extends OxygenController
 		if (is_null($event)) {
 			throw $this->createNotFoundException($this->get('translator')->trans('oxygen_passbook.event.notfound', array('%id%' => $id)));
 		}
+		
+		// Get total bookings
+		$totalBookings = $this->getEntitiesServer()->getManager('oxygen_passbook.booking_slot')->getRepository()->createQueryBuilder('booking_slot')
+			->select('COUNT(booking_slot.id)')
+			->innerJoin('booking_slot.eventProductSlot', 'event_product_slot')
+			->innerJoin('event_product_slot.eventProduct', 'event_product')
+			->innerJoin('event_product.event', 'event')
+			->where('event.id=:eventId')->setParameter('eventId', $eventId)
+			->getQuery()->getSingleScalarResult();
+		
 		$grid_view = $this->get('oxygen_datagrid.loader')->getView(
 				'oxygen_passbook_event_product', array('eventId' => $eventId)
 			);
-		return $grid_view->getGridResponse('OxygenPassbookBundle:Event:list_event_product.html.twig', array('event' => $event));
+		return $grid_view->getGridResponse('OxygenPassbookBundle:Event:list_event_product.html.twig', array('event' => $event, 'totalBookings' => $totalBookings));
 	}
 
 	public function deleteEventAction($id)

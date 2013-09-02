@@ -11,6 +11,7 @@
 </p>
 <p>
 	<a href="{{ path('oxygen_passbook_event_product_edit', { eventId: event.getId() }) }}" class="btn btn-primary">{{ 'oxygen_passbook.event_product.create'|trans }}</a>
+	<a href="{{ path('oxygen_passbook_booking_list', { eventId: event.getId() }) }}" class="btn btn-default"><span class="badge badge-success">{{ totalBookings }}</span>&nbsp;{{ 'slots_booked'|trans }}</a>
 </p>
 {{ grid(grid, 'OxygenPassbookBundle:Event:grid_template.html.twig') }}
 {% endblock oxygen_passbook_content %}

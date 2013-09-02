@@ -56,6 +56,8 @@ print:
         person_name: Nom
         person_email: Email
 
+slots_booked: Créneaux réservés
+
 # Form to book a person
 form_book:
     slot:
