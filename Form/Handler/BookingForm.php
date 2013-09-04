@@ -104,30 +104,40 @@ class BookingForm extends Form {
 		
 		return $this;
 	}
+	/**
+	 * Search unique person (or create) to registrer bookings
+	 * 
+	 */
+	protected function getBookingPerson() {
+		//Get booking person by email
+		$bookingPerson =  $this->container->get('oxygen_framework.entities')->getManager('oxygen_passbook.booking_person')->getRepository()->findOneBy(
+				array('email' => $this->getData()->getPerson()->getEmail())
+		);
+		if (!is_null($bookingPerson)) {
+			foreach($bookingPerson->getBookingSlots() as $bookingSlot) {
+				if ($bookingSlot->getEventTicket()->getId() == $this->getData()->getEventTicket()->getId()) {
+					$this->form->addError(new FormError('booking.errors.booking_exist', null, array(
+							'%mail%' => $this->getData()->getPerson()->getEmail(),
+							'%name%' => $this->options['event']->getName()
+					)));
+					break;
+				}
+			}
+			// Transfer data to existing person
+			$bookingPerson->setName($this->getData()->getPerson()->getName());
+			$bookingPerson->setEmail($this->getData()->getPerson()->getEmail());
+			$this->getData()->setPerson($bookingPerson);
+		} else {
+			$bookingPerson = $this->getData()->getPerson();
+			$this->container->get('doctrine.orm.entity_manager')->persist($bookingPerson);
+		}
+		return $bookingPerson;
+	}
 	
 	public function onSubmit() {
 		
 		if (empty($this->options['person_id'])) {
-			//Get booking person by email
-			$bookingPerson =  $this->container->get('oxygen_framework.entities')->getManager('oxygen_passbook.booking_person')->getRepository()->findOneBy(array('email' => $this->getData()->getPerson()->getEmail()));
-			if (!is_null($bookingPerson)) {
-				foreach($bookingPerson->getBookingSlots() as $bookingSlot) {
-					if ($bookingSlot->getEventTicket()->getId() == $this->getData()->getEventTicket()->getId()) {
-						$this->form->addError(new FormError('booking.errors.booking_exist', null, array(
-								'%mail%' => $this->getData()->getPerson()->getEmail(),
-								'%name%' => $this->options['event']->getName()
-							)));
-						break;
-					}
-				}
-				// Transfer data to existing person
-				$bookingPerson->setName($this->getData()->getPerson()->getName());
-				$bookingPerson->setEmail($this->getData()->getPerson()->getEmail());
-				$this->getData()->setPerson($bookingPerson);
-			} else {
-				$bookingPerson = $this->getData()->getPerson();
-				$this->container->get('doctrine.orm.entity_manager')->persist($bookingPerson);
-			}
+			$bookingPerson = $this->getBookingPerson();
 		} else {
 			$bookingPerson = $this->getData()->getPerson();
 		}
