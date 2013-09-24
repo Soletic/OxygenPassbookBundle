@@ -18,7 +18,8 @@ abstract class EventModel implements EventInterface {
 	protected $products;
 	protected $tickets;
 	protected $type;
-	protected $opened = false; 
+	protected $opened = false;
+	protected $bookingsClosed = false;
 	
 	public function __construct() {
 		$this->products = new ArrayCollection();
@@ -166,4 +167,22 @@ abstract class EventModel implements EventInterface {
 		return $this->opened;
 	}
 
+	/**
+	 * (non-PHPdoc)
+	 * @see Oxygen\PassbookBundle\Model.EventInterface::isBookingsClosed()
+	 */
+	public function isBookingsClosed() {
+		return $this->bookingsClosed;
+	}
+	
+	/**
+	 * (non-PHPdoc)
+	 * @see Oxygen\PassbookBundle\Model.EventInterface::setBookingsClosed()
+	 */
+	public function setBookingsClosed($bookingsClosed) {
+		$this->bookingsClosed = $bookingsClosed;
+	}
+
+
+	
 }

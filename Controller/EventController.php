@@ -136,9 +136,24 @@ class EventController extends OxygenController
 		}
 		
 		$event->setOpened($state);
+		if (!$state)
+			$event->setBookingsClosed(true);
 		$this->getDoctrine()->getEntityManager()->flush();
 		$this->get('oxygen_framework.templating.messages')->addSuccess($this->translate('oxygen_passbook.event.'.(($state)?'published':'unpublished'), array('%name%' => $event->getName())));
 		
+		return $this->redirect($this->generateUrl('oxygen_passbook_event_list'));
+	}
+	
+	public function changeStateEventAction($eventId, $close) {
+		$event = $this->get('oxygen_framework.entities')->getManager('oxygen_passbook.event')->getRepository()->find($eventId);
+		if (is_null($event)) {
+			throw $this->createNotFoundException($this->get('translator')->trans('oxygen_passbook.event.notfound', array('%id%' => $id)));
+		}
+	
+		$event->setBookingsClosed($close);
+		$this->getDoctrine()->getEntityManager()->flush();
+		$this->get('oxygen_framework.templating.messages')->addSuccess($this->translate('oxygen_passbook.event.'.(($close)?'closed':'opened'), array('%name%' => $event->getName())));
+	
 		return $this->redirect($this->generateUrl('oxygen_passbook_event_list'));
 	}
 	

@@ -104,4 +104,15 @@ interface EventInterface {
 	*/
 	public function isOpened();
 	
+	/**
+	 * @param bool $opened
+	 * @return EventInterface
+	 */
+	public function setBookingsClosed($bookingsClosed);
+	
+	/**
+	 * @return bool
+	 */
+	public function isBookingsClosed();
+	
 }

@@ -7,9 +7,16 @@ oxygen_passbook_event:
     Actions: ''
     products: Animations
     type: Nature des animations
-    publish: Ouvrir réservations
-    unpublish: Fermer réservations
+    publish: Publier
+    publish_helper: Donne accès pour tous à l'évènement et ses propres réservations déjà faites
+    unpublish: Dépublier
+    unpublish_helper: Enlève tout accès à l'évènement et ses réservations
+    close: Fermer
+    close_helper: Bloque la possibilité à l'internaute de d'ajouter ou modifier de nouvelles réservations
+    open: Ouvrir
+    open_helper: Ouvre les réservations pour l'internaute
     opened: Etat
+    bookingsClosed: Réservations
     
 oxygen_passbook_event_product:
     url: Lien de la fiche
@@ -90,8 +97,10 @@ oxygen_passbook:
         create: Créer un évènement
         save: Enregistrer
         notfound: L'évènement %id% n'existe pas
-        published: Evènement "%name%" publié. Les personnes peuvent commencer à réserver.
+        published: Evènement "%name%" publié. Les personnes peuvent se connecter pour consulter leurs réservations.
         unpublished: Evènement "%name%" dépublié.
+        opened: Réservations ouvertes pour l'évènement "%name%". Les personnes peuvent commencer à réserver.
+        closed: Réservations fermées pour l'évènement "%name%". Les personnes ne peuvent plus modifier leurs réservations mais toujours les consulter.
         form:
             dateStart: Début le
             dateEnd: Fin le
