@@ -1,7 +1,11 @@
 {% extends oxygen_layout() %}
 
 {% block oxygen_passbook_title %}
+{% if type is null %}
 {{ 'oxygen_passbook.booking.event_list.section_name'|trans }}
+{% else %}
+{{ 'oxygen_passbook.booking.event_list.section_name_end'|trans }}
+{% endif %}
 {% endblock oxygen_passbook_title %}
 
 {% block oxygen_passbook_content %}

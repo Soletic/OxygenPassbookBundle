@@ -5,10 +5,12 @@
 	<span class="badge badge-success">{{ value }}</span>&nbsp;
 	{{ 'oxygen_passbook_event_booking.list_booking'|trans }}
 </a>
+{% if row.getField('dateEnd')|date('Y-m-d H:i:s') > "now"|date("Y-m-d H:i:s") %}
 &nbsp;
 <a href="{{ path('oxygen_passbook_booking_add', { eventId: row.getField('id') }) }}" class="btn btn-primary">
 	{{ 'oxygen_passbook.booking.add'|trans }}
 </a>
+{% endif %}
 {% endblock %}
 
 {% block grid_column_description_cell %}

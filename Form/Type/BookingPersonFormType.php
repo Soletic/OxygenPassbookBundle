@@ -26,7 +26,9 @@ class BookingPersonFormType extends EntityEmbeddedFormType {
 		} else {
 			$builder->add('email', 'email', array('required' => true, 'translation_domain' => 'oxygen_passbook_form'));
 		}
-		
+		if ($options['phone']) {
+			$builder->add('phone', 'text', array('required' => true, 'translation_domain' => 'oxygen_passbook_form', 'label' => 'form.booking.phone_number'));
+		}
 	}
 	
 	public function setDefaultOptions(OptionsResolverInterface $resolver) {
@@ -34,6 +36,7 @@ class BookingPersonFormType extends EntityEmbeddedFormType {
 		$resolver->setDefaults(array(
 				'translation_domain' => 'oxygen_passbook_form',
 				'email_disabled' => false,
+				'phone' => true,
 		));
 	}
 	

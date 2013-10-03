@@ -18,6 +18,7 @@ form:
     booking:
         user_data_admin: Informations sur la personne
         user_data: Informations personnelles
+        phone_number: N° de téléphone
     filter_bookings:
         date_min: Entre
         date_max: Et

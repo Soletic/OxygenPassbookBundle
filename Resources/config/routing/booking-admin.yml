@@ -1,7 +1,7 @@
 # Events
 oxygen_passbook_booking_event_list:
-    pattern:  /booking/events
-    defaults: { _controller: 'OxygenPassbookBundle:Booking:listEvents' }
+    pattern:  /booking/events/{type}
+    defaults: { _controller: 'OxygenPassbookBundle:Booking:listEvents', type: null }
     
 # Edit
 oxygen_passbook_booking_add:

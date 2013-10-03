@@ -14,6 +14,7 @@ abstract class BookingPersonModel implements BookingPersonInterface {
 	protected $id;
 	protected $name;
 	protected $email;
+	protected $phone;
 	protected $bookingSlots;
 	
 	public function __construct() {
@@ -60,6 +61,25 @@ abstract class BookingPersonModel implements BookingPersonInterface {
 	public function getEmail()
 	{
 	    return $this->email;
+	}
+	
+	/**
+	 * (non-PHPdoc)
+	 * @see Oxygen\PassbookBundle\Model.BookingPersonInterface::setPhone()
+	 */
+	public function setPhone($phone)
+	{
+	    $this->phone = $phone;
+	    return $this;
+	}
+	 
+	/**
+	 * (non-PHPdoc)
+	 * @see Oxygen\PassbookBundle\Model.BookingPersonInterface::getPhone()
+	 */
+	public function getPhone()
+	{
+	    return $this->phone;
 	}
 	
 	public function refreshBookingSlot(BookingSlotInterface $bookingSlot) {

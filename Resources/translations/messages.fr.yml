@@ -127,6 +127,7 @@ oxygen_passbook:
     booking:
         event_list:
             section_name: Evènements en cours
+            section_name_end: Evènements terminés
         bookings:
             section_name: %event% > Réservations
         edit:

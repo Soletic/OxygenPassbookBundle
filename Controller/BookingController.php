@@ -19,12 +19,12 @@ class BookingController extends OxygenController
 	 * 
 	 * @author lolozere
 	 */
-	public function listEventsAction()
+	public function listEventsAction($type = null)
 	{
 		$grid_view = $this->get('oxygen_datagrid.loader')->getView(
-				'oxygen_passbook_event_booking'
+				'oxygen_passbook_event_booking', array('type' => $type)
 			);
-		return $grid_view->getGridResponse('OxygenPassbookBundle:Booking:event_list.html.twig');
+		return $grid_view->getGridResponse('OxygenPassbookBundle:Booking:event_list.html.twig', array('type' => $type));
 	}
 	
 	/**

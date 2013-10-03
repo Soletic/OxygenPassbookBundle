@@ -13,6 +13,7 @@ class EventBookingGridConfiguration extends EntityConfiguration implements Query
 	public function manipulateQuery(QueryBuilder $query)
 	{
 		$root = $query->getRootAlias();
+		$type = $this->getParameter('type');
 		/*
 		 * Add number of reservations
 		 */
@@ -35,7 +36,13 @@ class EventBookingGridConfiguration extends EntityConfiguration implements Query
 		$query->addSelect('('.$bookingPersonQueryBuilder->getDQL().') as bookings');
 		
 		// Limit to current event
-		$query->andWhere($root.'.dateEnd>:limitdate')->setParameter('limitdate', new \DateTime());
+		if (is_null($type)) {
+			$query->andWhere($root.'.dateEnd>:limitdate')->setParameter('limitdate', new \DateTime());
+		} elseif ($type == 'end') {
+			$query->andWhere($root.'.dateEnd<=:limitdate')->setParameter('limitdate', new \DateTime());
+		} else {
+			throw new \Exception("Type list for events unknown : $type");
+		}
 	}
 
 }

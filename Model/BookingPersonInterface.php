@@ -36,6 +36,18 @@ interface BookingPersonInterface {
 	* @return string
 	*/
 	public function getEmail();
+	
+	/**
+	 * @param string $phone
+	 * @return BookingPersonModel
+	 */
+	public function setPhone($phone);
+	
+	/**
+	 * @return string
+	 */
+	public function getPhone();
+	
 	/**
 	* Add booking for a slot
 	* 

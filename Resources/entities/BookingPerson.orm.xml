@@ -11,6 +11,7 @@
        		
 			<field name="name" type="string" length="100" nullable="false" />
 			<field name="email" type="string" length="100" nullable="false" />
+			<field name="phone" type="string" length="30" nullable="true" />
 			
 			<one-to-many field="bookingSlots" target-entity="%oxygen_passbook.entities.booking_slot.class%" mapped-by="bookingPerson">
        			<cascade>
