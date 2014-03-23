@@ -49,6 +49,8 @@ oxygen_passbook_booking_person:
     id: '#'
     name: Nom
     email: Email
+    phone: Téléphone
+    reference: Référence
     Actions: ''
 
 No result: Aucun résultat
