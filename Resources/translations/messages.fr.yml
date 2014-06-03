@@ -78,8 +78,8 @@ form_book:
 # Nature des animations
 event_type:
     care:
-        name: soin
-        Name: Soins
+        name: Rdv Pôle Thérapie Bien-Etre
+        Name: Rdv Pôle Thérapie Bien-Etre
     conference:
         name: conférence
         Name: Conférences
