@@ -6,7 +6,7 @@ oxygen_passbook_event:
     name: Evènement
     Actions: ''
     products: Animations
-    type: Nature des animations
+    type: Animations proposées
     publish: Publier
     publish_helper: Donne accès pour tous à l'évènement et ses propres réservations déjà faites
     unpublish: Dépublier
@@ -78,11 +78,20 @@ form_book:
 # Nature des animations
 event_type:
     care:
-        name: Rdv Pôle Thérapie Bien-Etre
-        Name: Rdv Pôle Thérapie Bien-Etre
+        Name: Interventions PTBE
+        short_name_plural: intervenants
+        book: Choisir vos intervenants
+        book_change: Modifier vos intervenants
+    workshop_adult:
+        Name: Ateliers Adultes
+        short_name_plural: ateliers
+        book: Choisir vos ateliers
+        book_change: Modifier vos ateliers
     conference:
-        name: conférence
         Name: Conférences
+        short_name_plural: conférences
+        book: Choisir vos conférences
+        book_change: Modifier vos conférences
         form_book_admin:
             choose_title: Choisir les conférences
             choose_helper: |

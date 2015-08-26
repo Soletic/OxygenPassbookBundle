@@ -10,4 +10,16 @@ use Doctrine\ORM\EntityRepository;
  */
 class EventRepository extends EntityRepository
 {
+	/**
+	 * Retourne la liste des évènements réservables
+	 *
+	 * @return array
+	 */
+	public function findEventsBookable()
+	{
+		return $this->createQueryBuilder("event")->where('event.opened=:opened')->setParameter('opened', true)
+			->andWhere('event.bookingsClosed=:bookingClosed')->setParameter('bookingClosed', false)
+			->getQuery()->getResult();
+	}
+	
 }
