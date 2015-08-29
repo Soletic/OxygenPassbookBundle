@@ -10,7 +10,7 @@ use Oxygen\FrameworkBundle\Controller\OxygenController;
 
 /**
  * Controller of API Actions
- * 
+ *
  * @author lolozere
  *
  */
@@ -18,8 +18,9 @@ class ApiController extends OxygenController
 {
 	/**
 	 * Liste les créneaux horaires d'une animation
-	 * 
+	 *
 	 * @author lolozere
+	 * @todo Ne plus utiliser "location" qui est propre à SSN et non à PassbookBundle
 	 */
 	public function availabilityAction()
 	{
@@ -32,7 +33,7 @@ class ApiController extends OxygenController
 		// Search event product with this url
 		$slots = $this->getEntitiesServer()->getManager('oxygen_passbook.event_product_slot')->getRepository()
 			->createQueryBuilder('slot')->innerJoin('slot.eventProduct', 'event_product')
-			->select('event_product.name as name, slot.id as slotId, slot.dateStart as dateStart, slot.dateEnd as dateEnd, slot.seatMax as seatMax')
+			->select('event_product.name as name, event_product.location as location, slot.id as slotId, slot.dateStart as dateStart, slot.dateEnd as dateEnd, slot.seatMax as seatMax')
 			->orderBy('event_product.id', 'ASC')
 			->addOrderBy('slot.dateStart', 'ASC');
 		
@@ -49,7 +50,7 @@ class ApiController extends OxygenController
 		$previousEventProduct = null;
 		foreach($slots as $slot) {
 			if ($previousEventProduct != $slot['name']) {
-				$availability[] = array('name' => $slot['name'], 'slots' => array());
+				$availability[] = array('name' => $slot['name'], 'location' => $slot['location'], 'slots' => array());
 				$previousEventProduct = $slot['name'];
 			}
 			$date = $slot['dateStart']->format('j M Y');
