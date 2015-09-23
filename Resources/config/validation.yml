@@ -12,6 +12,12 @@ Oxygen\PassbookBundle\Model\EventModel:
       - DateTime: { groups: ['default'] }
       - NotNull: { groups: ['default'] }
 
+Oxygen\PassbookBundle\Model\EventTypeModel:
+  properties:
+    name:
+      - NotBlank: { groups: ['default'] }
+      - Length: { min: 4, groups: ['default'] }
+
 Oxygen\PassbookBundle\Model\EventProductModel:
   properties:
     name:

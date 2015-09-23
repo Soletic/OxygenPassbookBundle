@@ -32,6 +32,20 @@ oxygen_passbook_event_close:
     defaults: { _controller: 'OxygenPassbookBundle:Event:changeStateEvent', close: true }
     requirements:
         eventId: \d+
+# Event type
+oxygen_passbook_event_type_list:
+    pattern:  /event-type
+    defaults: { _controller: 'OxygenPassbookBundle:Event:listEventType' }
+oxygen_passbook_event_type_edit:
+    pattern:  /event-type/edit/{id}
+    defaults: { _controller: 'OxygenPassbookBundle:Event:editEventType', id: null }
+    requirements:
+        id: \d+
+oxygen_passbook_event_type_delete:
+    pattern:  /event-type/delete/{id}
+    defaults: { _controller: 'OxygenPassbookBundle:Event:deleteEventType', id: null }
+    requirements:
+        id: \d+
 # Event product
 oxygen_passbook_event_product_list:
     pattern:  /products/{eventId}

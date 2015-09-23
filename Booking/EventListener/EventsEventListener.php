@@ -9,6 +9,7 @@ use Oxygen\FrameworkBundle\Model\EntityEvents;
 
 use Oxygen\FrameworkBundle\Model\Event\ModelEvent;
 
+use Oxygen\PassbookBundle\Booking\Exception\EventsFoundException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EventsEventListener implements EventSubscriberInterface {
@@ -25,6 +26,7 @@ class EventsEventListener implements EventSubscriberInterface {
 	public static function getSubscribedEvents() {
 		return array(
 				EntityEvents::beforeRemove('oxygen_passbook.event_product') => 'onRemoveEventProduct',
+				EntityEvents::beforeRemove('oxygen_passbook.event_type') => 'onRemoveEventType',
 				EntityEvents::beforeRemove('oxygen_passbook.event') => 'onRemoveEvent',
 				EntityEvents::beforeRemove('oxygen_passbook.event_product_slot') => 'onRemoveEventProductSlot',
 			);
@@ -41,6 +43,13 @@ class EventsEventListener implements EventSubscriberInterface {
 		$bookings = $this->entitiesServer->getManager(('oxygen_passbook.booking_slot'))->getRepository()->findByEvent($event->getModel()->getId());
 		if (count($bookings) > 0) {
 			throw BookingsFoundException::create(sprintf("Impossible to remove event %d because bookings exist", $event->getModel()->getId()), $bookings);
+		}
+	}
+
+	public function onRemoveEventType(ModelEvent $event) {
+		$events = $this->entitiesServer->getManager(('oxygen_passbook.event'))->getRepository()->findByType($event->getModel()->getId());
+		if (count($events) > 0) {
+			throw EventsFoundException::create(sprintf("Impossible to remove event %d because events exist", $event->getModel()->getId()), $events);
 		}
 	}
 	

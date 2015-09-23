@@ -1,0 +1,19 @@
+{% extends oxygen_layout() %}
+
+{% block oxygen_passbook_title %}
+{{ 'oxygen_passbook.event_type.section_name'|trans }} > {{ 'oxygen_passbook.event_type.create'|trans }}
+{% endblock oxygen_passbook_title %}
+
+{% block oxygen_passbook_content %}
+{{ parent() }}
+<div>
+	<form method="post" {{ form_enctype(form) }}>
+	{{ form_errors(form) }}
+	{{ form_widget(form) }}
+	{{ form_rest(form) }}
+	<p>
+		<input formnovalidate type="submit" value="{{ 'oxygen_passbook.event_type.save'|trans }}" class="btn btn-primary" />
+	</p>
+	</form>
+</div>
+{% endblock oxygen_passbook_content %}

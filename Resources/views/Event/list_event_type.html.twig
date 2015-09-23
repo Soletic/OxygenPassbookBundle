@@ -1,0 +1,17 @@
+{% extends oxygen_layout() %}
+
+{% block oxygen_passbook_title %}
+{{ 'oxygen_passbook.event_type.section_name'|trans }}
+{% endblock oxygen_passbook_title %}
+
+{% block oxygen_passbook_content %}
+{{ parent() }}
+<p>
+	{{ 'oxygen_passbook.event_type.help'|trans }}.<br />
+	{{ 'oxygen_passbook.event_type.example'|trans }}
+</p>
+<p>
+	<a href="{{ path('oxygen_passbook_event_type_edit') }}" class="btn btn-primary">{{ 'oxygen_passbook.event_type.create'|trans }}</a>
+</p>
+{{ grid(grid, 'OxygenPassbookBundle:Event:grid_template.html.twig') }}
+{% endblock oxygen_passbook_content %}

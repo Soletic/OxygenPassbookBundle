@@ -17,7 +17,12 @@ oxygen_passbook_event:
     open_helper: Ouvre les réservations pour l'internaute
     opened: Etat
     bookingsClosed: Réservations
-    
+
+oxygen_passbook_event_type:
+    id: '#'
+    name: Nature d'animation
+    Actions: ''
+
 oxygen_passbook_event_product:
     url: Lien de la fiche
     id: '#'
@@ -96,6 +101,19 @@ oxygen_passbook:
         saved: Evènement <strong>%name%</strong> correctement enregistré
         deleted: Evènement <strong>%name%</strong> supprimé
         bookings_exist: Suppression impossible de %name% car des réservations existent
+    event_type:
+        section_name: Nature d'animation
+        help: Tout évènement proposé un format (nature) d'animation. Il est donc nécessaire de s'en créer un liste.
+        example: |
+            Exemple : l'évènement Pass Bien-être donne accès à des animations proposant des "Intervention PTBE".
+        create: Créer une nature d'animation
+        save: Enregistrer
+        notfound: La nature d'animation %id% n'existe pas
+        form:
+            name: Nom
+        saved: Nature d'animation <strong>%name%</strong> correctement enregistrée
+        deleted: Nature d'animation <strong>%name%</strong> supprimée
+        events_exist: Suppression impossible de %name% car des évènements y sont associés
     event_product:
         section_name: %event% > Animations
         help: Pour chaque évènement, des animations sont proposées à différents créneaux horaires.

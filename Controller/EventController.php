@@ -2,6 +2,7 @@
 namespace Oxygen\PassbookBundle\Controller;
 use Oxygen\PassbookBundle\Booking\Exception\BookingsFoundException;
 
+use Oxygen\PassbookBundle\Booking\Exception\EventsFoundException;
 use Oxygen\PassbookBundle\Form\Model\EventProductFormModel;
 
 use Oxygen\PassbookBundle\Form\Model\EventFormModel;
@@ -21,6 +22,12 @@ class EventController extends OxygenController
 	{
 		$grid_view = $this->get('oxygen_datagrid.loader')->getView('oxygen_passbook_event');
 		return $grid_view->getGridResponse('OxygenPassbookBundle:Event:list.html.twig');
+	}
+
+	public function listEventTypeAction()
+	{
+		$grid_view = $this->get('oxygen_datagrid.loader')->getView('oxygen_passbook_event_type');
+		return $grid_view->getGridResponse('OxygenPassbookBundle:Event:list_event_type.html.twig');
 	}
 
 	public function listEventProductsAction($eventId)
@@ -60,6 +67,22 @@ class EventController extends OxygenController
 		}
 		return $this->redirect($this->generateUrl('oxygen_passbook_event_list'));
 	}
+
+	public function deleteEventTypeAction($id)
+	{
+		$eventType = $this->get('oxygen_framework.entities')->getManager('oxygen_passbook.event_type')->getRepository()->find($id);
+		if (is_null($eventType)) {
+			throw $this->createNotFoundException($this->get('translator')->trans('oxygen_passbook.event_type.notfound', array('%id%' => $id)));
+		}
+		try {
+			$this->get('oxygen_framework.entities')->getManager('oxygen_passbook.event_type')->remove($eventType);
+			$this->getDoctrine()->getEntityManager()->flush();
+			$this->get('oxygen_framework.templating.messages')->addSuccess($this->translate('oxygen_passbook.event_type.deleted', array('%name%' => $eventType->getName())));
+		} catch(EventsFoundException $e) {
+			$this->get('oxygen_framework.templating.messages')->addError($this->translate('oxygen_passbook.event_type.events_exist', array('%name%' => $eventType->getName())));
+		}
+		return $this->redirect($this->generateUrl('oxygen_passbook_event_type_list'));
+	}
 	
 	public function deleteEventProductAction($id)
 	{
@@ -87,6 +110,17 @@ class EventController extends OxygenController
 			}
 		}
 		return $this->render('OxygenPassbookBundle:Event:edit.html.twig', array('form' => $form->createView()));
+	}
+
+	public function editEventTypeAction($id = null)
+	{
+		$form = $this->get('oxygen_framework.form')->getForm('oxygen_passbook_event_type_form', array('id' => $id));
+		if ($form->isSubmitted()) {
+			if ($form->process()) {
+				return $this->redirect($this->generateUrl('oxygen_passbook_event_type_list'));
+			}
+		}
+		return $this->render('OxygenPassbookBundle:Event:edit_event_type.html.twig', array('form' => $form->createView()));
 	}
 
 	public function editEventProductAction($eventId = null, $id = null, $copy = false)
