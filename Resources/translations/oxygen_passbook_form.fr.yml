@@ -23,14 +23,11 @@ form:
         date_min: Entre
         date_max: Et
         filter: Filtrer
-        
-# Perso par type d'évènements
-default:
-    form:
-        booking:
-            slots_title: Choisir les animations
-            slots_introduction: Parmi les animations proposées ci-dessous, sélectionner un créneau horaire
-            slots_limitation: Le ticket utilisé vous donne droit à %max% animations maximum
+    slots_booking:
+        slots_title: Choisir
+        slots_introduction: Sélectionner votre ou vos choix de créneau horaire
+        slots_limitation: Le ticket utilisé vous donne droit à %max% choix maximum
+
         
 event:
     informations: Informations

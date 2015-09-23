@@ -75,29 +75,6 @@ form_book:
         remaining_one: %label% - 1 place 
 
 
-# Nature des animations
-event_type:
-    care:
-        Name: Interventions PTBE
-        short_name_plural: intervenants
-        book: Choisir vos intervenants
-        book_change: Modifier vos intervenants
-    workshop_adult:
-        Name: Ateliers Adultes
-        short_name_plural: ateliers
-        book: Choisir vos ateliers
-        book_change: Modifier vos ateliers
-    conference:
-        Name: Conférences
-        short_name_plural: conférences
-        book: Choisir vos conférences
-        book_change: Modifier vos conférences
-        form_book_admin:
-            choose_title: Choisir les conférences
-            choose_helper: |
-                Parmi les conférences proposées ci-dessous, sélectionner un créneau horaire.
-            
-
 # Form
 oxygen_passbook: 
     event:

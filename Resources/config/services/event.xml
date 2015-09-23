@@ -64,9 +64,9 @@
         	<call method="setTranslator">
         		<argument type="service" id="translator" />
         	</call>
-        	<call method="setTypes">
-        		<argument>%oxygen_passbook.event_types%</argument>
-        	</call>
+            <call method="setEventTypeClassName">
+                <argument>%oxygen_passbook.entities.event_type.class%</argument>
+            </call>
         </service>
         <service id="oxygen_passbook.form.event_product.type" class="%oxygen_passbook.event_product.form.type_class%">
         	<tag name="form.type" alias="oxygen_passbook_event_product_type" />

@@ -144,11 +144,11 @@
 		</div>
 		<h3>{{ form_label(form, null, { plaintext: true }) }}</h3>
 		<p>
-			{{ (form.vars['event'].getType()~'.form.booking.slots_introduction')|trans({}, 'oxygen_passbook_form') }}
+			{{ 'form.slots_booking.slots_introduction'|trans({}, 'oxygen_passbook_form') }}
 		</p>
 		{% if form.vars['max_animations'] > 0 %}
 		<p>
-			{{ (form.vars['event'].getType()~'.form.booking.slots_limitation')|trans({'%max%': form.vars['max_animations']}, 'oxygen_passbook_form') }}
+			{{ 'form.slots_booking.slots_limitation'|trans({'%max%': form.vars['max_animations']}, 'oxygen_passbook_form') }}
 		</p>
 		{% endif %}
 		<div>

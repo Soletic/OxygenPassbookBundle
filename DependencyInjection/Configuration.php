@@ -38,8 +38,9 @@ class Configuration extends OxygenConfiguration implements ConfigurationInterfac
                     ->end()
 				->prototype('scalar')->end()
     		->end();
-        
+
         $this->addEntityConfiguration($rootNode, 'Oxygen\PassbookBundle\Entity\Event', 'Oxygen\PassbookBundle\Entity\Repository\EventRepository');
+        $this->addEntityConfiguration($rootNode, 'Oxygen\PassbookBundle\Entity\EventType', 'Oxygen\PassbookBundle\Entity\Repository\EventTypeRepository');
         $this->addEntityConfiguration($rootNode, 'Oxygen\PassbookBundle\Entity\EventProduct', 'Oxygen\PassbookBundle\Entity\Repository\EventProductRepository');
         $this->addEntityConfiguration($rootNode, 'Oxygen\PassbookBundle\Entity\EventTicket', 'Oxygen\PassbookBundle\Entity\Repository\EventTicketRepository');
         $this->addEntityConfiguration($rootNode, 'Oxygen\PassbookBundle\Entity\EventProductSlot', 'Oxygen\PassbookBundle\Entity\Repository\EventProductSlotRepository');
