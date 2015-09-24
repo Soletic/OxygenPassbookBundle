@@ -16,18 +16,22 @@
 
 {% block grid_column_opened_cell %}
 {% if value=='true' %}
-<a data-toggle="tooltip" title="{{ 'oxygen_passbook_event.unpublish_helper'|trans }}" href="{{ path('oxygen_passbook_event_unpublish', { eventId: row.getField('id') }) }}" class="btn btn-danger">{{ 'oxygen_passbook_event.unpublish'|trans }}</a>
+<span class="label label-success">{{ 'oxygen_passbook_event.state.opened'|trans }}</span>&nbsp;
+<a data-toggle="tooltip" title="{{ 'oxygen_passbook_event.unpublish_helper'|trans }}" href="{{ path('oxygen_passbook_event_unpublish', { eventId: row.getField('id') }) }}" class="btn btn-default btn-small">{{ 'oxygen_passbook_event.unpublish'|trans }}</a>
 {% else %}
-<a data-toggle="tooltip" title="{{ 'oxygen_passbook_event.publish_helper'|trans }}" href="{{ path('oxygen_passbook_event_publish', { eventId: row.getField('id') }) }}" class="btn btn-success">{{ 'oxygen_passbook_event.publish'|trans }}</a>
+<span class="label label-important">{{ 'oxygen_passbook_event.state.closed'|trans }}</span>&nbsp;
+<a data-toggle="tooltip" title="{{ 'oxygen_passbook_event.publish_helper'|trans }}" href="{{ path('oxygen_passbook_event_publish', { eventId: row.getField('id') }) }}" class="btn btn-default btn-small">{{ 'oxygen_passbook_event.publish'|trans }}</a>
 {% endif %}
 {% endblock %}
 
 {% block grid_column_bookingsClosed_cell %}
 {% if row.getField('opened') %}
 {% if value=='false' %}
-<a data-toggle="tooltip" title="{{ 'oxygen_passbook_event.close_helper'|trans }}" href="{{ path('oxygen_passbook_event_close', { eventId: row.getField('id') }) }}" class="btn btn-danger">{{ 'oxygen_passbook_event.close'|trans }}</a>
+<span class="label label-success">{{ 'oxygen_passbook_event.bookings_state.opened'|trans }}</span>&nbsp;
+<a data-toggle="tooltip" title="{{ 'oxygen_passbook_event.close_helper'|trans }}" href="{{ path('oxygen_passbook_event_close', { eventId: row.getField('id') }) }}" class="btn btn-default btn-small">{{ 'oxygen_passbook_event.close'|trans }}</a>
 {% else %}
-<a data-toggle="tooltip" title="{{ 'oxygen_passbook_event.open_helper'|trans }}" href="{{ path('oxygen_passbook_event_open', { eventId: row.getField('id') }) }}" class="btn btn-success">{{ 'oxygen_passbook_event.open'|trans }}</a>
+<span class="label label-important">{{ 'oxygen_passbook_event.bookings_state.closed'|trans }}</span>&nbsp;
+<a data-toggle="tooltip" title="{{ 'oxygen_passbook_event.open_helper'|trans }}" href="{{ path('oxygen_passbook_event_open', { eventId: row.getField('id') }) }}" class="btn btn-default btn-small">{{ 'oxygen_passbook_event.open'|trans }}</a>
 {% endif %}
 {% endif %}
 {% endblock %}

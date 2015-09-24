@@ -16,6 +16,12 @@ oxygen_passbook_event:
     open: Ouvrir
     open_helper: Ouvre les réservations pour l'internaute
     opened: Etat
+    state:
+        closed: Caché
+        opened: Visible
+    bookings_state:
+        closed: Fermée
+        opened: Ouverte
     bookingsClosed: Réservations
 
 oxygen_passbook_event_type:
